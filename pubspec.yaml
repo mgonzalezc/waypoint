@@ -58,16 +58,16 @@ flutter:
   fonts:
     - family: Archivo
       fonts:
-        - asset: assets/fonts/Archivo-Variable.ttf
+        - asset: assets/fonts/archivo/Archivo-Variable.ttf
           weight: 900
     - family: Onest
       fonts:
-        - asset: assets/fonts/Onest-Variable.ttf
+        - asset: assets/fonts/onest/Onest-Variable.ttf
           weight: 400
-        - asset: assets/fonts/Onest-Variable.ttf
+        - asset: assets/fonts/onest/Onest-Variable.ttf
           weight: 600
     - family: Space Mono
       fonts:
-        - asset: assets/fonts/SpaceMono-Regular.ttf
-        - asset: assets/fonts/SpaceMono-Bold.ttf
+        - asset: assets/fonts/spacemono/SpaceMono-Regular.ttf
+        - asset: assets/fonts/spacemono/SpaceMono-Bold.ttf
           weight: 700
