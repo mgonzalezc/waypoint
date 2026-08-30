@@ -12,6 +12,7 @@ Early scaffold. Built incrementally through the PR history, one small reviewable
 
 ## Repository layout
 
+- Flutter client lives at the repository root (`lib/`, `android/`, `ios/`, `pubspec.yaml`).
 - `docs/` — UX reference mock
 
 ## Running locally
