@@ -1,0 +1,33 @@
+# Flutter / Dart
+app/.dart_tool/
+app/.flutter-plugins
+app/.flutter-plugins-dependencies
+app/.packages
+app/build/
+app/ios/Pods/
+app/ios/.symlinks/
+app/android/.gradle/
+
+# Secrets — never commit an API key
+*.env
+.env.*
+**/secrets.dart
+app/dart_define.local.json
+
+# Firebase local
+firebase/functions/lib/
+firebase/functions/node_modules/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+.firebase/
+
+# Local-only planning notes, never committed
+docs/plan.md
+
+# OS / editor
+.DS_Store
+*.swp
+.vscode/*
+!.vscode/launch.json
+.idea/

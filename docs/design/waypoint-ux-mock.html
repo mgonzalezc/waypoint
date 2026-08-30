@@ -1,0 +1,242 @@
+<title>Waypoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Onest:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+
+<style>
+:root{
+  --bg:#0B0B0C;
+  --card:#17171A; --card-2:#1F2023;
+  --line:rgba(255,255,255,.09);
+  --text:#F5F4F1; --text-soft:rgba(245,244,241,.68); --text-mute:rgba(245,244,241,.42);
+  --amber:#F3B23C; --amber-ink:#211500;
+  --trust:#5AA9E6; --trust-ink:#DCEEFB;
+  --font-display:'Archivo',-apple-system,sans-serif;
+  --font-body:'Onest',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:'Space Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);margin:0}
+.intro{max-width:640px;margin:0 auto;padding:2.5rem 1.5rem 1rem}
+.intro h1{font-family:var(--font-display);font-weight:900;font-size:32px;margin:0 0 10px;text-wrap:balance;letter-spacing:-.01em}
+.intro p{font-size:15px;line-height:1.6;color:var(--text-soft);margin:0}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--trust-ink);background:rgba(90,169,230,.14);display:inline-block;padding:4px 10px;border-radius:3px;margin-bottom:14px}
+.flow{display:flex;overflow-x:auto;gap:0;padding:1.5rem 1rem 3rem;scroll-snap-type:x proximity}
+.stop{flex:0 0 300px;scroll-snap-align:start;padding:0 14px}
+.stop-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.stop-dot{width:22px;height:22px;border-radius:50%;background:var(--amber);color:var(--amber-ink);font-family:var(--font-mono);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stop-label{font-size:13px;color:var(--text-mute)}
+.phone{background:#000;border:1px solid rgba(255,255,255,.14);border-radius:34px;padding:10px;box-shadow:0 24px 48px -28px rgba(0,0,0,.7)}
+.notch{width:70px;height:5px;border-radius:3px;background:rgba(255,255,255,.16);margin:2px auto 8px}
+.screen{background:var(--bg);border-radius:24px;min-height:604px;display:flex;flex-direction:column;overflow:hidden;font-size:13px;position:relative}
+.pad{padding:16px}
+.row{display:flex;align-items:center;gap:8px}
+.between{display:flex;align-items:center;justify-content:space-between}
+.chip{font-size:11px;background:var(--card-2);color:var(--text-soft);border-radius:999px;padding:5px 10px;white-space:nowrap;border:1px solid var(--line)}
+.chip.on{background:var(--amber);color:var(--amber-ink);border-color:var(--amber)}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;background:rgba(11,11,12,.55);backdrop-filter:blur(6px);color:#fff;border-radius:999px;padding:4px 9px;font-family:var(--font-mono)}
+.badge.trust{color:var(--trust-ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.mono{font-family:var(--font-mono)}
+.muted{color:var(--text-soft)}
+.mute2{color:var(--text-mute)}
+.tiny{font-size:11px}
+.searchbar{display:flex;align-items:center;gap:8px;background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--text-mute);font-size:13px}
+.pillnav{margin-top:auto;display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px;align-items:center}
+.navitem{flex:1;display:flex;align-items:center;justify-content:center;height:36px;border-radius:999px;color:var(--text-mute)}
+.navitem.active{background:var(--amber);color:var(--amber-ink)}
+.photo{position:relative;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;animation:kenburns 24s ease-in-out infinite alternate}
+@media (prefers-reduced-motion: reduce){.photo img{animation:none}}
+@keyframes kenburns{from{transform:scale(1) translate(0,0)}to{transform:scale(1.12) translate(-2%,-2%)}}
+.scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.85) 100%)}
+.scrim-top{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.55) 100%)}
+.btn{background:var(--amber);color:var(--amber-ink);text-align:center;padding:13px;border-radius:12px;font-weight:700;font-size:13px}
+.rank{width:38px;height:38px;border-radius:10px;overflow:hidden;flex-shrink:0;position:relative}
+.rank img{width:100%;height:100%;object-fit:cover}
+.rank-n{position:absolute;top:-6px;left:-6px;background:var(--amber);color:var(--amber-ink);font-family:var(--font-display);font-size:11px;font-weight:900;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:1}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.statcell{background:var(--card);padding:10px 12px}
+.statcell b{display:block;font-family:var(--font-mono);font-size:13px}
+.statcell span{font-size:10px;color:var(--text-mute)}
+h2.scr{font-family:var(--font-display);font-weight:900;font-size:22px;margin:0 0 2px;text-wrap:balance;letter-spacing:-.01em}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--card-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px}
+</style>
+
+<div class="intro">
+  <span class="eyebrow">flujo de producto · 7 pantallas</span>
+  <h1>Waypoint</h1>
+  <p>rankings de viaje razonados por IA con fuentes verificadas, no una nota de estrellas. hoteles, mesas, vuelos y planes, en un top 10 que explica el porqué de cada puesto.</p>
+</div>
+
+<div class="flow">
+
+<div class="stop">
+  <div class="stop-head"><span class="stop-dot">0</span><span class="stop-label">splash</span></div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen">
+      <div class="photo" style="position:absolute;inset:0">
+        <img src="https://images.unsplash.com/photo-1786352260444-20539d92fee0?fm=jpg&q=70&w=800&auto=format&fit=crop" alt="" />
+        <div class="scrim"></div>
+      </div>
+      <div style="position:relative;margin-top:auto;padding:22px 20px 26px;display:flex;flex-direction:column;gap:12px">
+        <h2 style="font-family:var(--font-display);font-weight:900;font-size:30px;line-height:1.02;text-transform:uppercase;color:#fff;margin:0;letter-spacing:-.01em">decide<br>mejor tu<br>próximo viaje</h2>
+        <p class="tiny" style="color:rgba(255,255,255,.75);margin:0">siempre un top 10. nunca 30 pestañas abiertas.</p>
+        <div class="btn" style="margin-top:6px">empezar</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stop">
+  <div class="stop-head"><span class="stop-dot">1</span><span class="stop-label">inicio</span></div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen pad" style="gap:16px;display:flex;flex-direction:column">
+      <div class="between">
+        <div><p class="tiny mute2" style="margin:0 0 2px">buenas tardes</p><h2 class="scr">marina</h2></div>
+        <div class="avatar">MG</div>
+      </div>
+      <div class="searchbar"><i class="ti ti-search" style="font-size:16px"></i> pide tu top 10 de...</div>
+      <div class="between">
+        <span style="font-family:var(--font-display);font-weight:900;font-size:16px">top 10 para ti</span>
+        <span class="chip on">ver todo</span>
+      </div>
+      <p class="tiny mute2" style="margin:-10px 0 0">según tus últimas búsquedas</p>
+      <div class="row" style="overflow-x:auto;gap:10px;margin:0 -16px;padding:0 16px">
+        <div class="card" style="min-width:150px;flex-shrink:0">
+          <div class="photo" style="height:110px">
+            <img src="https://images.unsplash.com/photo-1757540458718-39b554788b44?fm=jpg&q=70&w=600&auto=format&fit=crop" alt="" />
+            <div class="scrim"></div>
+            <span class="badge trust" style="position:absolute;top:8px;left:8px"><i class="ti ti-shield-check" style="font-size:11px"></i> 12 fuentes</span>
+            <div style="position:absolute;bottom:8px;left:10px;right:10px"><b style="color:#fff;font-size:12px">calas, menorca</b></div>
+          </div>
+        </div>
+        <div class="card" style="min-width:150px;flex-shrink:0">
+          <div class="photo" style="height:110px">
+            <img src="https://images.unsplash.com/photo-1748279944004-f1d733dc711b?fm=jpg&q=70&w=600&auto=format&fit=crop" alt="" />
+            <div class="scrim"></div>
+            <span class="badge trust" style="position:absolute;top:8px;left:8px"><i class="ti ti-shield-check" style="font-size:11px"></i> 9 fuentes</span>
+            <div style="position:absolute;bottom:8px;left:10px;right:10px"><b style="color:#fff;font-size:12px">rooftops, lisboa</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="pillnav">
+        <div class="navitem active"><i class="ti ti-home" style="font-size:18px"></i></div>
+        <div class="navitem"><i class="ti ti-search" style="font-size:18px"></i></div>
+        <div class="navitem"><i class="ti ti-bookmark" style="font-size:18px"></i></div>
+        <div class="navitem"><i class="ti ti-user" style="font-size:18px"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stop">
+  <div class="stop-head"><span class="stop-dot">2</span><span class="stop-label">preguntar</span></div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen pad" style="gap:16px;display:flex;flex-direction:column">
+      <div class="row"><i class="ti ti-arrow-left" style="font-size:18px"></i><span class="tiny mute2">nueva búsqueda</span></div>
+      <h2 class="scr">top 10 restaurantes románticos en roma</h2>
+      <p class="tiny mute2" style="margin:-8px 0 0">categoría detectada</p>
+      <div class="row" style="flex-wrap:wrap;gap:6px">
+        <span class="chip on"><i class="ti ti-tools-kitchen-2" style="font-size:12px"></i> mesas</span>
+        <span class="chip">para 2</span><span class="chip">terraza</span><span class="chip">&lt; 70€ pp</span>
+      </div>
+      <div class="card pad" style="padding:12px">
+        <p class="tiny mute2" style="margin:0 0 8px">refina antes de lanzar (opcional)</p>
+        <div class="searchbar">con vistas al río, evitar zonas muy turísticas...</div>
+      </div>
+      <div class="btn" style="margin-top:auto">generar ranking</div>
+    </div>
+  </div>
+</div>
+
+<div class="stop">
+  <div class="stop-head"><span class="stop-dot">3</span><span class="stop-label">verificando</span></div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen pad" style="gap:18px;display:flex;flex-direction:column;justify-content:center">
+      <p class="tiny mute2" style="text-align:center;margin:0 0 6px">top 10 · restaurantes · roma</p>
+      <div class="card row" style="gap:10px;padding:12px"><i class="ti ti-search" style="font-size:16px;color:var(--trust)"></i><span style="flex:1">buscando fuentes recientes</span><i class="ti ti-check" style="color:var(--trust)"></i></div>
+      <div class="card row" style="gap:10px;padding:12px"><i class="ti ti-shield-check" style="font-size:16px;color:var(--trust)"></i><span style="flex:1">descartando reviews sospechosas</span><i class="ti ti-check" style="color:var(--trust)"></i></div>
+      <div class="card row" style="gap:10px;padding:12px;border-color:var(--amber)"><i class="ti ti-list-numbers" style="font-size:16px;color:var(--amber)"></i><span style="flex:1">ordenando el top 10</span><div style="width:8px;height:8px;border-radius:50%;background:var(--amber)"></div></div>
+      <p class="mono tiny mute2" style="text-align:center">17 fuentes contrastadas</p>
+    </div>
+  </div>
+</div>
+
+<div class="stop">
+  <div class="stop-head"><span class="stop-dot">4</span><span class="stop-label">ranking</span></div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen pad" style="gap:10px;display:flex;flex-direction:column;overflow-y:auto">
+      <div class="between"><h2 class="scr">roma · románticos</h2><span class="chip on mono" style="font-weight:700">top 10</span></div>
+      <div class="row" style="gap:8px"><span class="rank"><span class="rank-n">1</span><img src="https://images.unsplash.com/photo-1753873555674-1d6698c7537b?fm=jpg&q=60&w=200&auto=format&fit=crop" alt=""/></span>
+        <div style="flex:1"><div class="between"><b style="font-size:12px">aroma trastevere</b><span class="mono tiny">€€€</span></div><p class="tiny mute2" style="margin:2px 0 0">terraza sobre el tíber · 3 fuentes coinciden en el servicio</p></div>
+      </div>
+      <div class="row" style="gap:8px"><span class="rank"><span class="rank-n">2</span><img src="https://images.unsplash.com/photo-1753873555674-1d6698c7537b?fm=jpg&q=60&w=200&auto=format&fit=crop" alt=""/></span>
+        <div style="flex:1"><div class="between"><b style="font-size:12px">da enzo al 29</b><span class="mono tiny">€€</span></div><p class="tiny mute2" style="margin:2px 0 0">clásico local, sin turistificar</p></div>
+      </div>
+      <div class="row" style="gap:8px"><span class="rank"><span class="rank-n">3</span><img src="https://images.unsplash.com/photo-1753873555674-1d6698c7537b?fm=jpg&q=60&w=200&auto=format&fit=crop" alt=""/></span>
+        <div style="flex:1"><div class="between"><b style="font-size:12px">le mani in pasta</b><span class="mono tiny">€€</span></div><p class="tiny mute2" style="margin:2px 0 0">reserva con 2 semanas, mesa junto a ventana</p></div>
+      </div>
+      <div class="row" style="gap:8px;opacity:.45"><span class="rank"><span class="rank-n">4</span><img src="https://images.unsplash.com/photo-1753873555674-1d6698c7537b?fm=jpg&q=60&w=200&auto=format&fit=crop" alt=""/></span>
+        <div style="flex:1"><b style="font-size:12px">glass hostaria</b></div>
+      </div>
+      <p class="tiny mute2" style="text-align:center;margin:2px 0 0">+ 6 más · siempre 10, nunca más</p>
+      <div class="searchbar" style="margin-top:auto"><i class="ti ti-adjustments" style="font-size:16px"></i> solo con terraza...</div>
+    </div>
+  </div>
+</div>
+
+<div class="stop">
+  <div class="stop-head"><span class="stop-dot">5</span><span class="stop-label">detalle</span></div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen" style="overflow-y:auto">
+      <div class="photo" style="height:190px">
+        <img src="https://images.unsplash.com/photo-1743664039044-34898c6bed3f?fm=jpg&q=70&w=800&auto=format&fit=crop" alt="" />
+        <div class="scrim-top"></div>
+        <div class="row" style="position:absolute;top:12px;left:12px;right:12px;justify-content:space-between">
+          <i class="ti ti-arrow-left" style="color:#fff;font-size:18px"></i>
+          <i class="ti ti-heart" style="color:#fff;font-size:18px"></i>
+        </div>
+        <div style="position:absolute;bottom:10px;left:14px;right:14px">
+          <span class="badge trust"><i class="ti ti-shield-check" style="font-size:11px"></i> 3 fuentes verificadas</span>
+        </div>
+      </div>
+      <div class="pad" style="display:flex;flex-direction:column;gap:12px">
+        <div class="between"><h2 class="scr">aroma trastevere</h2><span class="rank-n" style="position:static;width:22px;height:22px">1</span></div>
+        <p style="margin:0;line-height:1.5">gana el puesto 1 por consenso: las tres reseñas recientes citan servicio atento incluso en hora punta, y la terraza da directo al tíber, algo que #2 y #3 no ofrecen.</p>
+        <div class="statgrid">
+          <div class="statcell"><b>€€€</b><span>precio</span></div>
+          <div class="statcell"><b>trastevere</b><span>zona</span></div>
+          <div class="statcell"><b>abr - oct</b><span>mejor época</span></div>
+          <div class="statcell"><b>2 sem</b><span>antelación</span></div>
+        </div>
+        <div class="row" style="flex-wrap:wrap;gap:6px">
+          <span class="chip"><i class="ti ti-external-link" style="font-size:11px"></i> guía local 2026</span>
+          <span class="chip"><i class="ti ti-external-link" style="font-size:11px"></i> foro viajeros</span>
+        </div>
+        <div class="btn"><i class="ti ti-bookmark" style="font-size:14px;vertical-align:-2px"></i> guardar en mis rankings</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stop">
+  <div class="stop-head"><span class="stop-dot">6</span><span class="stop-label">guardados</span></div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen pad" style="gap:12px;display:flex;flex-direction:column">
+      <h2 class="scr">tus rankings</h2>
+      <div class="card row" style="gap:10px;padding:10px"><i class="ti ti-tools-kitchen-2" style="font-size:16px;color:var(--trust)"></i><div style="flex:1"><b style="font-size:12px">románticos, roma</b><p class="tiny mute2" style="margin:0">guardado hace 2 días</p></div><i class="ti ti-chevron-right" style="color:var(--text-mute)"></i></div>
+      <div class="card row" style="gap:10px;padding:10px"><i class="ti ti-plane" style="font-size:16px;color:var(--trust)"></i><div style="flex:1"><b style="font-size:12px">rutas baratas europa</b><p class="tiny mute2" style="margin:0">3 refinamientos guardados</p></div><i class="ti ti-chevron-right" style="color:var(--text-mute)"></i></div>
+      <div class="card row" style="gap:10px;padding:10px"><i class="ti ti-building-skyscraper" style="font-size:16px;color:var(--trust)"></i><div style="flex:1"><b style="font-size:12px">boutique, lisboa</b><p class="tiny mute2" style="margin:0">compartido con 2 personas</p></div><i class="ti ti-chevron-right" style="color:var(--text-mute)"></i></div>
+      <div class="pillnav">
+        <div class="navitem"><i class="ti ti-home" style="font-size:18px"></i></div>
+        <div class="navitem"><i class="ti ti-search" style="font-size:18px"></i></div>
+        <div class="navitem active"><i class="ti ti-bookmark" style="font-size:18px"></i></div>
+        <div class="navitem"><i class="ti ti-user" style="font-size:18px"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
