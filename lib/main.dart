@@ -115,6 +115,7 @@ class _ManualRankingTestScreenState extends State<_ManualRankingTestScreen> {
     NoConnection() => 'no connection',
     ServiceUnavailable() => 'service unavailable',
     RateLimited() => 'rate limited',
+    InsufficientQuota() => 'no billing/credit on this OpenAI account',
     UnexpectedFailure(:final message) => 'unexpected: $message',
     _ => error.toString(),
   };

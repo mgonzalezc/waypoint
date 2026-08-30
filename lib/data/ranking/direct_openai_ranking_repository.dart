@@ -78,7 +78,7 @@ class DirectOpenAiRankingRepository implements RankingRepository {
         return const NoConnection();
       case DioExceptionType.badResponse:
         final status = error.response?.statusCode;
-        if (status == 429) return const RateLimited();
+        if (status == 429) return _mapTooManyRequests(error);
         if (status != null && status >= 500) return const ServiceUnavailable();
         return UnexpectedFailure('OpenAI returned HTTP $status');
       case DioExceptionType.cancel:
@@ -86,6 +86,14 @@ class DirectOpenAiRankingRepository implements RankingRepository {
       case DioExceptionType.unknown:
         return const UnexpectedFailure('Unexpected network error');
     }
+  }
+
+  RankingFailure _mapTooManyRequests(DioException error) {
+    final data = error.response?.data;
+    final errorField = data is Map ? data['error'] : null;
+    final code = errorField is Map ? errorField['code'] : null;
+    if (code == 'insufficient_quota') return const InsufficientQuota();
+    return const RateLimited();
   }
 
   String _systemPrompt(String locale) => '''

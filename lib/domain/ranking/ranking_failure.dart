@@ -14,6 +14,10 @@ class RateLimited extends RankingFailure {
   const RateLimited();
 }
 
+class InsufficientQuota extends RankingFailure {
+  const InsufficientQuota();
+}
+
 class UnexpectedFailure extends RankingFailure {
   const UnexpectedFailure(this.message);
 
