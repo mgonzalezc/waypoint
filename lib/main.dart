@@ -1,14 +1,21 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-import 'data/ranking/direct_openai_ranking_repository.dart';
-import 'data/services/openai_service.dart';
-import 'domain/api_failure.dart';
-import 'domain/ranking/ranking_repository.dart';
-import 'domain/ranking/ranking_result.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'ui/design_system/theming/waypoint_theme.dart';
+import 'ui/screens/ask/view.dart';
 
 void main() {
-  runApp(const WaypointApp());
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    debugPrint('Uncaught Flutter error: ${details.exception}');
+  };
+
+  runZonedGuarded(
+    () => runApp(const ProviderScope(child: WaypointApp())),
+    (error, stack) => debugPrint('Uncaught zone error: $error'),
+  );
 }
 
 class WaypointApp extends StatelessWidget {
@@ -20,101 +27,7 @@ class WaypointApp extends StatelessWidget {
       title: 'Waypoint',
       debugShowCheckedModeBanner: false,
       theme: buildWaypointTheme(),
-      home: const _ManualRankingTestScreen(),
+      home: const AskView(),
     );
   }
-}
-
-class _ManualRankingTestScreen extends StatefulWidget {
-  const _ManualRankingTestScreen();
-
-  @override
-  State<_ManualRankingTestScreen> createState() => _ManualRankingTestScreenState();
-}
-
-class _ManualRankingTestScreenState extends State<_ManualRankingTestScreen> {
-  final _controller = TextEditingController();
-  final RankingRepository _repository = DirectOpenAiRankingRepository(
-    OpenAiService(OpenAiService.buildClient()),
-  );
-
-  bool _loading = false;
-  RankingResult? _result;
-  Object? _error;
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  Future<void> _submit() async {
-    final query = _controller.text.trim();
-    if (query.isEmpty) return;
-
-    setState(() {
-      _loading = true;
-      _result = null;
-      _error = null;
-    });
-
-    try {
-      final result = await _repository.generateRanking(query: query, locale: 'es');
-      setState(() => _result = result);
-    } catch (error) {
-      setState(() => _error = error);
-    } finally {
-      setState(() => _loading = false);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('ranking generation — manual test')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: _controller,
-              decoration: const InputDecoration(
-                hintText: 'top 10 tapas bars in Seville...',
-              ),
-              onSubmitted: (_) => _submit(),
-            ),
-            const SizedBox(height: 12),
-            ElevatedButton(
-              onPressed: _loading ? null : _submit,
-              child: Text(_loading ? 'generating...' : 'generate'),
-            ),
-            const SizedBox(height: 16),
-            if (_error != null) Text('Error: ${_describeError(_error!)}'),
-            if (_result != null)
-              Expanded(
-                child: ListView(
-                  children: [
-                    if (_result!.isDegraded)
-                      const Text('(fewer than 10 good candidates)'),
-                    for (final item in _result!.items)
-                      ListTile(
-                        title: Text('${item.position}. ${item.name}'),
-                        subtitle: Text(item.reason),
-                      ),
-                  ],
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  String _describeError(Object error) => switch (error) {
-    NoConnection() => 'no connection',
-    ServiceUnavailable() => 'service unavailable',
-    UnexpectedFailure(:final message) => 'unexpected: $message',
-    _ => error.toString(),
-  };
 }
