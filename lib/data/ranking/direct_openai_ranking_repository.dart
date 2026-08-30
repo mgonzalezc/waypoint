@@ -6,7 +6,7 @@ import '../../domain/ranking/ranking_failure.dart';
 import '../../domain/ranking/ranking_repository.dart';
 import '../../domain/ranking/ranking_result.dart';
 import '../services/openai_service.dart';
-import 'dto/ranking_response_dto.dart';
+import 'ranking_response_mapper.dart';
 
 class DirectOpenAiRankingRepository implements RankingRepository {
   DirectOpenAiRankingRepository(this._openAi);
@@ -19,21 +19,20 @@ class DirectOpenAiRankingRepository implements RankingRepository {
     required String locale,
   }) async {
     try {
-      final completion = await _openAi.createChatCompletion(
+      final content = await _openAi.createChatCompletion(
         systemPrompt: _systemPrompt(locale),
         userPrompt: query,
       );
-      final content = _extractContent(completion);
       final decoded = jsonDecode(content);
       if (decoded is! Map<String, dynamic>) {
         throw const UnexpectedFailure('OpenAI response content was not a JSON object');
       }
-      final dto = RankingResponseDto.fromJson(decoded);
+      final items = parseRankingItems(decoded);
 
       return RankingResult(
         query: query,
-        items: dto.items,
-        degraded: dto.items.length < 10,
+        items: items,
+        degraded: items.length < 10,
       );
     } on DioException catch (error) {
       throw _mapDioError(error);
@@ -42,30 +41,6 @@ class DirectOpenAiRankingRepository implements RankingRepository {
     } on StateError catch (error) {
       throw UnexpectedFailure(error.message);
     }
-  }
-
-  String _extractContent(Map<String, dynamic> completion) {
-    final choices = completion['choices'];
-    if (choices is! List || choices.isEmpty) {
-      throw const UnexpectedFailure('OpenAI response has no choices');
-    }
-
-    final first = choices.first;
-    if (first is! Map<String, dynamic>) {
-      throw const UnexpectedFailure('OpenAI response choice is not an object');
-    }
-
-    final message = first['message'];
-    if (message is! Map<String, dynamic>) {
-      throw const UnexpectedFailure('OpenAI response choice has no message');
-    }
-
-    final content = message['content'];
-    if (content is! String) {
-      throw const UnexpectedFailure('OpenAI response message has no content');
-    }
-
-    return content;
   }
 
   RankingFailure _mapDioError(DioException error) {

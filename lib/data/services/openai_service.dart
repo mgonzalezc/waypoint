@@ -14,14 +14,14 @@ class OpenAiService {
     ),
   );
 
-  Future<Map<String, dynamic>> createChatCompletion({
+  Future<String> createChatCompletion({
     required String systemPrompt,
     required String userPrompt,
   }) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/chat/completions',
       data: {
-        'model': 'gpt-4o-mini',
+        'model': 'gpt-5-nano',
         'response_format': {'type': 'json_object'},
         'messages': [
           {'role': 'system', 'content': systemPrompt},
@@ -34,6 +34,30 @@ class OpenAiService {
     if (data == null) {
       throw StateError('OpenAI returned an empty response body');
     }
-    return data;
+    return _extractContent(data);
+  }
+
+  String _extractContent(Map<String, dynamic> completion) {
+    final choices = completion['choices'];
+    if (choices is! List || choices.isEmpty) {
+      throw StateError('OpenAI response has no choices');
+    }
+
+    final first = choices.first;
+    if (first is! Map<String, dynamic>) {
+      throw StateError('OpenAI response choice is not an object');
+    }
+
+    final message = first['message'];
+    if (message is! Map<String, dynamic>) {
+      throw StateError('OpenAI response choice has no message');
+    }
+
+    final content = message['content'];
+    if (content is! String) {
+      throw StateError('OpenAI response message has no content');
+    }
+
+    return content;
   }
 }

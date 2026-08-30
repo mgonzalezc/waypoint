@@ -9,14 +9,6 @@ import 'package:waypoint/domain/ranking/ranking_failure.dart';
 
 class _MockOpenAiService extends Mock implements OpenAiService {}
 
-Map<String, dynamic> _completionWith(String jsonContent) => {
-  'choices': [
-    {
-      'message': {'content': jsonContent},
-    },
-  ],
-};
-
 void main() {
   late _MockOpenAiService openAi;
   late DirectOpenAiRankingRepository repository;
@@ -42,7 +34,7 @@ void main() {
             systemPrompt: any(named: 'systemPrompt'),
             userPrompt: any(named: 'userPrompt'),
           ),
-        ).thenAnswer((_) async => _completionWith(jsonEncode({'items': items})));
+        ).thenAnswer((_) async => jsonEncode({'items': items}));
 
         final result = await repository.generateRanking(query: 'q', locale: 'es');
 
@@ -59,13 +51,11 @@ void main() {
             userPrompt: any(named: 'userPrompt'),
           ),
         ).thenAnswer(
-          (_) async => _completionWith(
-            jsonEncode({
-              'items': [
-                {'name': 'Place 0', 'reason': 'reason 0'},
-              ],
-            }),
-          ),
+          (_) async => jsonEncode({
+            'items': [
+              {'name': 'Place 0', 'reason': 'reason 0'},
+            ],
+          }),
         );
 
         final result = await repository.generateRanking(query: 'q', locale: 'es');
@@ -175,7 +165,7 @@ void main() {
             systemPrompt: any(named: 'systemPrompt'),
             userPrompt: any(named: 'userPrompt'),
           ),
-        ).thenAnswer((_) async => _completionWith('not json'));
+        ).thenAnswer((_) async => 'not json');
 
         expect(
           () => repository.generateRanking(query: 'q', locale: 'es'),
@@ -191,7 +181,7 @@ void main() {
             systemPrompt: any(named: 'systemPrompt'),
             userPrompt: any(named: 'userPrompt'),
           ),
-        ).thenAnswer((_) async => _completionWith(jsonEncode([1, 2, 3])));
+        ).thenAnswer((_) async => jsonEncode([1, 2, 3]));
 
         expect(
           () => repository.generateRanking(query: 'q', locale: 'es'),
@@ -200,7 +190,7 @@ void main() {
       });
     });
 
-    group('when OpenAI returns an empty response body', () {
+    group('when the OpenAI service throws (e.g. a malformed envelope)', () {
       test('then it throws UnexpectedFailure, not a raw StateError', () async {
         when(
           () => openAi.createChatCompletion(
