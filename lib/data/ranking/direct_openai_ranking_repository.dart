@@ -6,6 +6,7 @@ import '../../domain/ranking/ranking_failure.dart';
 import '../../domain/ranking/ranking_repository.dart';
 import '../../domain/ranking/ranking_result.dart';
 import '../services/openai_service.dart';
+import 'dio_exception_mapper.dart';
 import 'ranking_response_mapper.dart';
 
 class DirectOpenAiRankingRepository implements RankingRepository {
@@ -35,40 +36,12 @@ class DirectOpenAiRankingRepository implements RankingRepository {
         degraded: items.length < 10,
       );
     } on DioException catch (error) {
-      throw _mapDioError(error);
+      throw error.toRankingFailure();
     } on FormatException {
       throw const UnexpectedFailure('OpenAI response was not valid JSON');
     } on StateError catch (error) {
       throw UnexpectedFailure(error.message);
     }
-  }
-
-  RankingFailure _mapDioError(DioException error) {
-    switch (error.type) {
-      case DioExceptionType.connectionError:
-      case DioExceptionType.connectionTimeout:
-      case DioExceptionType.receiveTimeout:
-      case DioExceptionType.sendTimeout:
-      case DioExceptionType.transformTimeout:
-        return const NoConnection();
-      case DioExceptionType.badResponse:
-        final status = error.response?.statusCode;
-        if (status == 429) return _mapTooManyRequests(error);
-        if (status != null && status >= 500) return const ServiceUnavailable();
-        return UnexpectedFailure('OpenAI returned HTTP $status');
-      case DioExceptionType.cancel:
-      case DioExceptionType.badCertificate:
-      case DioExceptionType.unknown:
-        return const UnexpectedFailure('Unexpected network error');
-    }
-  }
-
-  RankingFailure _mapTooManyRequests(DioException error) {
-    final data = error.response?.data;
-    final errorField = data is Map ? data['error'] : null;
-    final code = errorField is Map ? errorField['code'] : null;
-    if (code == 'insufficient_quota') return const InsufficientQuota();
-    return const RateLimited();
   }
 
   String _systemPrompt(String locale) => '''
