@@ -19,6 +19,21 @@ app.*.symbols
 app.*.map.json
 .widget_preview/
 
+# Misc build tools / editors that could otherwise drop stray files
+*.class
+*.log
+*.pyc
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+*.iml
+*.ipr
+*.iws
+
 # Secrets — never commit an API key
 *.env
 .env.*
