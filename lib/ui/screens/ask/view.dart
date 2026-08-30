@@ -22,11 +22,8 @@ class _AskViewState extends ConsumerState<AskView> {
   }
 
   void _submit() {
-    final query = _controller.text.trim();
-    if (query.isEmpty) return;
-
     final locale = Localizations.localeOf(context).languageCode;
-    ref.read(rankingViewModelProvider.notifier).submitQuery(query: query, locale: locale);
+    ref.read(rankingViewModelProvider.notifier).submitQuery(query: _controller.text, locale: locale);
   }
 
   @override
