@@ -24,9 +24,11 @@ class DirectOpenAiRankingRepository implements RankingRepository {
         userPrompt: query,
       );
       final content = _extractContent(completion);
-      final dto = RankingResponseDto.fromJson(
-        jsonDecode(content) as Map<String, dynamic>,
-      );
+      final decoded = jsonDecode(content);
+      if (decoded is! Map<String, dynamic>) {
+        throw const UnexpectedFailure('OpenAI response content was not a JSON object');
+      }
+      final dto = RankingResponseDto.fromJson(decoded);
 
       return RankingResult(
         query: query,

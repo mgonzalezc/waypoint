@@ -156,6 +156,22 @@ void main() {
       });
     });
 
+    group('when OpenAI returns valid JSON that is not an object', () {
+      test('then it throws UnexpectedFailure instead of a raw TypeError', () async {
+        when(
+          () => openAi.createChatCompletion(
+            systemPrompt: any(named: 'systemPrompt'),
+            userPrompt: any(named: 'userPrompt'),
+          ),
+        ).thenAnswer((_) async => _completionWith(jsonEncode([1, 2, 3])));
+
+        expect(
+          () => repository.generateRanking(query: 'q', locale: 'es'),
+          throwsA(isA<UnexpectedFailure>()),
+        );
+      });
+    });
+
     group('when OpenAI returns an empty response body', () {
       test('then it throws UnexpectedFailure, not a raw StateError', () async {
         when(
