@@ -1,6 +1,6 @@
 {
   "@@locale": "es",
-  "askHeadline": "Pregúntale al mapa lo que sea.",
+  "askHeadline": "Pregunta al mapa lo que quieras.",
   "askFieldLabel": "Tu Top 10",
   "askHint": "bares de tapas en Sevilla...",
   "askSubmit": "Generar ranking",
