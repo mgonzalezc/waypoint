@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../design_system/atoms/waypoint_button.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
-import 'ranking_view_model.dart';
+import '../ranking/view.dart';
 
-class AskView extends ConsumerStatefulWidget {
+class AskView extends StatefulWidget {
   const AskView({super.key});
 
   @override
-  ConsumerState<AskView> createState() => _AskViewState();
+  State<AskView> createState() => _AskViewState();
 }
 
-class _AskViewState extends ConsumerState<AskView> {
+class _AskViewState extends State<AskView> {
   final _controller = TextEditingController();
 
   @override
@@ -22,14 +21,18 @@ class _AskViewState extends ConsumerState<AskView> {
   }
 
   void _submit() {
+    final query = _controller.text.trim();
+    if (query.isEmpty) return;
+
     final locale = Localizations.localeOf(context).languageCode;
-    ref.read(rankingViewModelProvider.notifier).submitQuery(query: _controller.text, locale: locale);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => RankingScreen(query: query, locale: locale)),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(rankingViewModelProvider);
-
     return Scaffold(
       appBar: AppBar(title: const Text('preguntar')),
       body: Padding(
@@ -49,28 +52,7 @@ class _AskViewState extends ConsumerState<AskView> {
               valueListenable: _controller,
               builder: (context, value, _) => WaypointButton(
                 label: 'generar ranking',
-                onPressed: state.isLoading || value.text.trim().isEmpty ? null : _submit,
-              ),
-            ),
-            const SizedBox(height: WaypointSpacing.md),
-            Expanded(
-              child: state.when(
-                data: (result) {
-                  if (result == null) return const SizedBox.shrink();
-                  return ListView(
-                    children: [
-                      if (result.isDegraded)
-                        const Text('(fewer than 10 good candidates)'),
-                      for (final item in result.items)
-                        ListTile(
-                          title: Text('${item.position}. ${item.name}'),
-                          subtitle: Text(item.reason),
-                        ),
-                    ],
-                  );
-                },
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (error, _) => Center(child: Text('Error: $error')),
+                onPressed: value.text.trim().isEmpty ? null : _submit,
               ),
             ),
           ],
