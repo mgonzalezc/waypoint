@@ -34,4 +34,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorUnexpected => 'Algo ha salido mal. Inténtalo de nuevo.';
+
+  @override
+  String get verifyingPhrase1 => 'Buscando por el mundo...';
+
+  @override
+  String get verifyingPhrase2 => 'Probando restaurantes...';
+
+  @override
+  String get verifyingPhrase3 => 'Leyendo miles de reseñas...';
+
+  @override
+  String get verifyingPhrase4 => 'Consultando a los locales...';
 }

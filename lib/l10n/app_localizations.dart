@@ -147,6 +147,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please try again.'**
   String get errorUnexpected;
+
+  /// No description provided for @verifyingPhrase1.
+  ///
+  /// In en, this message translates to:
+  /// **'Scouring the globe...'**
+  String get verifyingPhrase1;
+
+  /// No description provided for @verifyingPhrase2.
+  ///
+  /// In en, this message translates to:
+  /// **'Taste-testing restaurants...'**
+  String get verifyingPhrase2;
+
+  /// No description provided for @verifyingPhrase3.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading a thousand reviews...'**
+  String get verifyingPhrase3;
+
+  /// No description provided for @verifyingPhrase4.
+  ///
+  /// In en, this message translates to:
+  /// **'Consulting the locals...'**
+  String get verifyingPhrase4;
 }
 
 class _AppLocalizationsDelegate

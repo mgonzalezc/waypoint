@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../design_system/atoms/waypoint_button.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
-import '../ranking/view.dart';
+import '../verifying/view.dart';
 
 class AskView extends StatefulWidget {
   const AskView({super.key});
@@ -28,7 +28,7 @@ class _AskViewState extends State<AskView> {
     final locale = Localizations.localeOf(context).languageCode;
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => RankingScreen(query: query, locale: locale)),
+      MaterialPageRoute(builder: (_) => VerifyingScreen(query: query, locale: locale)),
     );
   }
 
