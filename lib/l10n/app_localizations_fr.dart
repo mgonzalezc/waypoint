@@ -28,6 +28,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get rankingDegradedNote => 'moins de 10 bons candidats cette fois';
 
   @override
+  String get detailSourcesLabel => 'Sources';
+
+  @override
   String get errorNoConnection =>
       'Pas de connexion internet. Vérifiez votre réseau et réessayez.';
 
