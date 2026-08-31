@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:waypoint/data/ranking/ranking_providers.dart';
@@ -116,6 +117,43 @@ void main() {
 
         expect(find.text('Something went wrong. Please try again.'), findsOneWidget);
         expect(find.textContaining('HTTP 400'), findsNothing);
+      });
+    });
+
+    group('when the user taps back after a failed search', () {
+      testWidgets('then it returns to the previous screen', (tester) async {
+        final repository = RankingRepositoryMock();
+        when(
+          () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
+        ).thenThrow(const NoConnection());
+
+        await pumpLocalizedApp(
+          tester,
+          Builder(
+            builder: (context) => ElevatedButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const VerifyingScreen(query: 'q', locale: 'en')),
+              ),
+              child: const Text('open'),
+            ),
+          ),
+          overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
+        );
+
+        await tester.tap(find.text('open'));
+        // Two pumps: the pushed route is offstage for the frame it's
+        // inserted on (part of the transition machinery), so it isn't
+        // findable until the next frame.
+        await tester.pump();
+        await tester.pump();
+        expect(find.text('No internet connection. Check your network and try again.'), findsOneWidget);
+
+        await tester.tap(find.byIcon(Icons.arrow_back));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(VerifyingScreen), findsNothing);
+        expect(find.text('open'), findsOneWidget);
       });
     });
   });

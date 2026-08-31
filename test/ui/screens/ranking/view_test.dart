@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
@@ -39,6 +40,39 @@ void main() {
 
         expect(find.text('Only Good One'), findsOneWidget);
         expect(find.text('fewer than 10 good candidates this time'), findsOneWidget);
+      });
+    });
+
+    group('when the user taps back', () {
+      testWidgets('then it returns to the previous screen, even with a single result', (tester) async {
+        const result = RankingResult(
+          query: 'q',
+          isDegraded: true,
+          items: [RankingItem(id: '1', position: 1, name: 'Only Good One', reason: 'r', sources: [])],
+        );
+
+        await pumpLocalizedApp(
+          tester,
+          Builder(
+            builder: (context) => ElevatedButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const RankingScreen(result: result)),
+              ),
+              child: const Text('open'),
+            ),
+          ),
+        );
+
+        await tester.tap(find.text('open'));
+        await tester.pumpAndSettle();
+        expect(find.byType(RankingScreen), findsOneWidget);
+
+        await tester.tap(find.byIcon(Icons.arrow_back));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(RankingScreen), findsNothing);
+        expect(find.text('open'), findsOneWidget);
       });
     });
   });

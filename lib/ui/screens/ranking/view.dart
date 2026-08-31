@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/ranking/ranking_result.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../design_system/atoms/waypoint_back_button.dart';
 import '../../design_system/atoms/waypoint_numeral.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 
@@ -20,6 +21,8 @@ class RankingScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(WaypointSpacing.lg),
           children: [
+            const WaypointBackButton(),
+            const SizedBox(height: WaypointSpacing.sm),
             Text(l10n.rankingTitle, style: theme.textTheme.displayLarge?.copyWith(fontSize: 22)),
             if (result.isDegraded)
               Padding(
