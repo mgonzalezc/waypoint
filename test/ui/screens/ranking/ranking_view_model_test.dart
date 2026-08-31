@@ -5,13 +5,13 @@ import 'package:waypoint/data/ranking/ranking_providers.dart';
 import 'package:waypoint/domain/api_failure.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
-import 'package:waypoint/ui/screens/ask/ranking_view_model.dart';
+import 'package:waypoint/ui/screens/ranking/ranking_view_model.dart';
 
 import '../../../domain/ranking/ranking_repository_mock.dart';
 
 void main() {
   group('RankingViewModel', () {
-    group('when the user taps submit and 10 good results come back', () {
+    group('when the screen is opened for a query and 10 good results come back', () {
       test('then the 10 items are in the resulting state', () async {
         final repository = RankingRepositoryMock();
         final result = RankingResult(
@@ -31,13 +31,11 @@ void main() {
         );
         addTearDown(container.dispose);
 
-        await container.read(rankingViewModelProvider.notifier).submitQuery(
-          query: 'q',
-          locale: 'es',
+        final state = await container.read(
+          rankingViewModelProvider((query: 'q', locale: 'es')).future,
         );
 
-        final state = container.read(rankingViewModelProvider);
-        expect(state.value?.items, hasLength(10));
+        expect(state.items, hasLength(10));
       });
     });
 
@@ -53,35 +51,36 @@ void main() {
         );
         addTearDown(container.dispose);
 
-        await container.read(rankingViewModelProvider.notifier).submitQuery(
-          query: 'q',
-          locale: 'es',
+        await expectLater(
+          container.read(rankingViewModelProvider((query: 'q', locale: 'es')).future),
+          throwsA(isA<NoConnection>()),
         );
-
-        final state = container.read(rankingViewModelProvider);
-        expect(state.hasError, isTrue);
-        expect(state.error, isA<NoConnection>());
       });
     });
 
-    group('when the query is blank', () {
-      test('then no search is triggered', () async {
+    group('when the same query is opened twice at once', () {
+      test('then the repository is only called once', () async {
         final repository = RankingRepositoryMock();
+        when(
+          () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
+        ).thenAnswer(
+          (_) async => const RankingResult(query: 'q', isDegraded: false, items: []),
+        );
+
         final container = ProviderContainer(
           overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
         );
         addTearDown(container.dispose);
 
-        await container.read(rankingViewModelProvider.notifier).submitQuery(
-          query: '   ',
-          locale: 'es',
-        );
+        final query = rankingViewModelProvider((query: 'q', locale: 'es'));
+        await Future.wait([
+          container.read(query.future),
+          container.read(query.future),
+        ]);
 
-        final state = container.read(rankingViewModelProvider);
-        expect(state.value, isNull);
-        verifyNever(
+        verify(
           () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
-        );
+        ).called(1);
       });
     });
   });
