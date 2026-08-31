@@ -6,7 +6,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:waypoint/data/ranking/ranking_providers.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
 import 'package:waypoint/ui/screens/ask/view.dart';
-import 'package:waypoint/ui/screens/ranking/view.dart';
+import 'package:waypoint/ui/screens/verifying/view.dart';
 
 import '../../../domain/ranking/ranking_repository_mock.dart';
 import '../../../support/pump_localized_app.dart';
@@ -23,8 +23,8 @@ void main() {
     });
 
     group('when the user types a query and submits', () {
-      testWidgets('then it navigates to the ranking screen with that query', (tester) async {
-        // RankingScreen starts fetching as soon as it's pushed, so the
+      testWidgets('then it navigates to the verifying screen with that query', (tester) async {
+        // VerifyingScreen starts fetching as soon as it's pushed, so the
         // repository still needs a stub here even though this test only
         // cares about the navigation, not the result.
         final repository = RankingRepositoryMock();
@@ -48,11 +48,8 @@ void main() {
         await tester.pump();
         await tester.pump();
 
-        final screen = tester.widget<RankingScreen>(find.byType(RankingScreen));
+        final screen = tester.widget<VerifyingScreen>(find.byType(VerifyingScreen));
         expect(screen.query, 'tapas en Roma');
-
-        completer.complete(const RankingResult(query: 'tapas en Roma', isDegraded: false, items: []));
-        await tester.pump();
       });
     });
   });

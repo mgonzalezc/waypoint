@@ -34,4 +34,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get errorUnexpected => 'Une erreur est survenue. Veuillez réessayer.';
+
+  @override
+  String get verifyingPhrase1 => 'Exploration du monde entier...';
+
+  @override
+  String get verifyingPhrase2 => 'Dégustation des restaurants...';
+
+  @override
+  String get verifyingPhrase3 => 'Lecture de milliers d\'avis...';
+
+  @override
+  String get verifyingPhrase4 => 'Consultation des habitants...';
 }
