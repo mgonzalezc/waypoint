@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../l10n/app_localizations.dart';
 import '../../design_system/atoms/waypoint_button.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../ranking/view.dart';
@@ -33,8 +34,10 @@ class _AskViewState extends State<AskView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('preguntar')),
+      appBar: AppBar(title: Text(l10n.askTitle)),
       body: Padding(
         padding: const EdgeInsets.all(WaypointSpacing.md),
         child: Column(
@@ -42,16 +45,14 @@ class _AskViewState extends State<AskView> {
           children: [
             TextField(
               controller: _controller,
-              decoration: const InputDecoration(
-                hintText: 'top 10 tapas bars in Seville...',
-              ),
+              decoration: InputDecoration(hintText: l10n.askHint),
               onSubmitted: (_) => _submit(),
             ),
             const SizedBox(height: WaypointSpacing.sm),
             ValueListenableBuilder<TextEditingValue>(
               valueListenable: _controller,
               builder: (context, value, _) => WaypointButton(
-                label: 'generar ranking',
+                label: l10n.askSubmit,
                 onPressed: value.text.trim().isEmpty ? null : _submit,
               ),
             ),
