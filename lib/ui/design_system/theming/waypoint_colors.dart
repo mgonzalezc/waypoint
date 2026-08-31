@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 
-/// Waypoint's dark, photo-forward palette.
+/// Waypoint's editorial, typography-first palette.
 class WaypointColors {
   const WaypointColors._();
 
-  static const Color background = Color(0xFF0D0D0F);
-  static const Color surface = Color(0xFF17171B);
-  static const Color surfaceRaised = Color(0xFF212126);
+  static const Color background = Color(0xFFFBFAF7);
+  static const Color surfaceRaised = Color(0xFFF3F1EA);
 
-  static const Color textPrimary = Color(0xFFF5F4F2);
-  static const Color textSecondary = Color(0xFFA9A8AD);
+  static const Color textPrimary = Color(0xFF17150F);
+  static const Color textSecondary = Color(0xFF857F6D);
 
-  /// CTAs, active badges, active bottom-nav pill.
-  static const Color amber = Color(0xFFF3B23C);
-  static const Color onAmber = Color(0xFF19140A);
+  /// CTAs, the ranking numerals' accent, and small in-text emphasis.
+  static const Color amber = Color(0xFFD98A2B);
+  static const Color onAmber = Color(0xFFFBFAF7);
 
-  /// "Verified source" trust indicator.
-  static const Color trustBlue = Color(0xFF5B8DEF);
-
-  static const Color error = Color(0xFFE2574C);
-  static const Color divider = Color(0xFF2C2C32);
+  static const Color error = Color(0xFFB3412F);
+  static const Color divider = Color(0xFFE7E3D9);
 }

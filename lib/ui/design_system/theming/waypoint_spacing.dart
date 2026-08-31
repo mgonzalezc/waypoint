@@ -13,4 +13,7 @@ class WaypointSpacing {
   static const double radiusSm = 8;
   static const double radiusMd = 16;
   static const double radiusPill = 999;
+
+  static const double iconSm = 16;
+  static const double iconMd = 20;
 }

@@ -10,19 +10,22 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get askTitle => 'Demander';
+  String get askHeadline => 'Demandez à la carte tout ce que vous voulez.';
 
   @override
-  String get askHint => 'meilleurs bars à tapas à Séville...';
+  String get askFieldLabel => 'Votre Top 10';
+
+  @override
+  String get askHint => 'bars à tapas à Séville...';
 
   @override
   String get askSubmit => 'Générer le classement';
 
   @override
-  String get rankingTitle => 'Classement';
+  String get rankingTitle => 'Les dix';
 
   @override
-  String get rankingDegradedBadge => 'Moins de 10 bons candidats';
+  String get rankingDegradedNote => 'moins de 10 bons candidats cette fois';
 
   @override
   String get errorNoConnection =>

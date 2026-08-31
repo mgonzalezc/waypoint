@@ -5,8 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/api_failure.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../design_system/atoms/waypoint_back_button.dart';
+import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../ranking/view.dart';
+import 'compass_needle.dart';
 import 'ranking_view_model.dart';
 
 class VerifyingScreen extends ConsumerWidget {
@@ -29,11 +32,27 @@ class VerifyingScreen extends ConsumerWidget {
       );
     });
 
-    return Scaffold(
+    return WaypointScaffold(
       body: state.when(
         data: (_) => const SizedBox.shrink(),
         loading: () => const _RotatingPhrase(),
-        error: (error, _) => Center(child: Text(_errorMessage(l10n, error))),
+        error: (error, _) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(WaypointSpacing.lg),
+              child: WaypointBackButton(),
+            ),
+            Expanded(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: WaypointSpacing.lg),
+                  child: Text(_errorMessage(l10n, error), textAlign: TextAlign.center),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -85,9 +104,9 @@ class _RotatingPhraseState extends State<_RotatingPhrase> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const CircularProgressIndicator(),
-          const SizedBox(height: WaypointSpacing.md),
-          Text(phrases[_index % phrases.length]),
+          const CompassNeedle(),
+          const SizedBox(height: WaypointSpacing.lg),
+          Text(phrases[_index % phrases.length], style: Theme.of(context).textTheme.labelLarge),
         ],
       ),
     );
