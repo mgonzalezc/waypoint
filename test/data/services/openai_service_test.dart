@@ -1,26 +1,37 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:waypoint/data/services/openai_service.dart';
 
+class DioMock extends Mock implements Dio {}
+
 void main() {
-  late _FakeResponder responder;
+  late DioMock dio;
   late OpenAiService service;
 
   setUp(() {
-    final dio = Dio(BaseOptions(baseUrl: 'https://api.openai.com/v1'));
-    responder = _FakeResponder();
-    dio.interceptors.add(responder);
+    dio = DioMock();
     service = OpenAiService(dio);
   });
+
+  Response<Map<String, dynamic>> responseWith(Map<String, dynamic>? body) => Response(
+    requestOptions: RequestOptions(path: '/chat/completions'),
+    data: body,
+    statusCode: 200,
+  );
+
+  void stubCompletion(Map<String, dynamic>? body) {
+    when(
+      () => dio.post<Map<String, dynamic>>(any(), data: any(named: 'data')),
+    ).thenAnswer((_) async => responseWith(body));
+  }
 
   group('OpenAiService.createChatCompletion', () {
     group('when the response has a well-formed envelope', () {
       test('then it returns the message content', () async {
-        responder.respondWith({
+        stubCompletion({
           'choices': [
-            {
-              'message': {'content': '{"items":[]}'},
-            },
+            {'message': {'content': '{"items":[]}'}},
           ],
         });
 
@@ -31,11 +42,35 @@ void main() {
 
         expect(content, '{"items":[]}');
       });
+
+      test('then it sends the model, response format, and both prompts to OpenAI', () async {
+        stubCompletion({
+          'choices': [
+            {'message': {'content': '{}'}},
+          ],
+        });
+
+        await service.createChatCompletion(systemPrompt: 'system prompt', userPrompt: 'user prompt');
+
+        verify(
+          () => dio.post<Map<String, dynamic>>(
+            '/chat/completions',
+            data: {
+              'model': 'gpt-5-nano',
+              'response_format': {'type': 'json_object'},
+              'messages': [
+                {'role': 'system', 'content': 'system prompt'},
+                {'role': 'user', 'content': 'user prompt'},
+              ],
+            },
+          ),
+        ).called(1);
+      });
     });
 
     group('when the response has no choices', () {
       test('then it throws StateError, not a raw type error', () async {
-        responder.respondWith({'choices': <dynamic>[]});
+        stubCompletion({'choices': <dynamic>[]});
 
         expect(
           () => service.createChatCompletion(systemPrompt: 's', userPrompt: 'u'),
@@ -46,7 +81,7 @@ void main() {
 
     group('when a choice has no message', () {
       test('then it throws StateError', () async {
-        responder.respondWith({
+        stubCompletion({
           'choices': [<String, dynamic>{}],
         });
 
@@ -59,7 +94,7 @@ void main() {
 
     group('when the message has no content', () {
       test('then it throws StateError', () async {
-        responder.respondWith({
+        stubCompletion({
           'choices': [
             {'message': <String, dynamic>{}},
           ],
@@ -74,7 +109,7 @@ void main() {
 
     group('when the response body is empty', () {
       test('then it throws StateError', () async {
-        responder.respondWith(null);
+        stubCompletion(null);
 
         expect(
           () => service.createChatCompletion(systemPrompt: 's', userPrompt: 'u'),
@@ -83,18 +118,4 @@ void main() {
       });
     });
   });
-}
-
-/// Resolves every request at the interceptor level with a canned body — no
-/// real network, no need to implement Dio's HttpClientAdapter/ResponseBody
-/// layer for what's just a handful of fixed responses.
-class _FakeResponder extends Interceptor {
-  Map<String, dynamic>? _next;
-
-  void respondWith(Map<String, dynamic>? body) => _next = body;
-
-  @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    handler.resolve(Response(requestOptions: options, data: _next, statusCode: 200));
-  }
 }
