@@ -31,6 +31,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get detailSourcesLabel => 'Sources';
 
   @override
+  String get detailSourceLaunchFailed => 'Couldn\'t open that link.';
+
+  @override
   String get errorNoConnection =>
       'No internet connection. Check your network and try again.';
 

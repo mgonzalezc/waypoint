@@ -7,6 +7,7 @@
   "rankingTitle": "Los diez",
   "rankingDegradedNote": "menos de 10 buenos candidatos esta vez",
   "detailSourcesLabel": "Fuentes",
+  "detailSourceLaunchFailed": "No se pudo abrir ese enlace.",
   "errorNoConnection": "Sin conexión a internet. Comprueba tu red e inténtalo de nuevo.",
   "errorServiceUnavailable": "El servicio no está disponible temporalmente. Inténtalo en unos minutos.",
   "errorUnexpected": "Algo ha salido mal. Inténtalo de nuevo.",

@@ -69,5 +69,25 @@ void main() {
         verify(() => urlLauncher.launchUrl('https://timeout.com/la-ristra', any())).called(1);
       });
     });
+
+    group('when the source fails to open', () {
+      testWidgets('then it tells the user, instead of doing nothing', (tester) async {
+        when(() => urlLauncher.launchUrl(any(), any())).thenAnswer((_) async => false);
+        const item = RankingItem(
+          id: '1',
+          position: 1,
+          name: 'La Ristra',
+          reason: 'r',
+          sources: [SourceCitation(title: 'Time Out Seville', url: 'https://timeout.com/la-ristra')],
+        );
+
+        await pumpLocalizedApp(tester, const DetailScreen(item: item));
+
+        await tester.tap(find.text('Time Out Seville'));
+        await tester.pump();
+
+        expect(find.text("Couldn't open that link."), findsOneWidget);
+      });
+    });
   });
 }

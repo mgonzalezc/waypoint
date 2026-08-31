@@ -48,12 +48,21 @@ class _SourceRow extends StatelessWidget {
 
   final SourceCitation source;
 
+  Future<void> _open(BuildContext context) async {
+    final launched = await launchUrl(Uri.parse(source.url));
+    if (!launched && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context)!.detailSourceLaunchFailed)),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return InkWell(
-      onTap: () => launchUrl(Uri.parse(source.url)),
+      onTap: () => _open(context),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.md),
         decoration: BoxDecoration(
