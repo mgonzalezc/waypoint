@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/ranking/ranking_result.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../design_system/atoms/waypoint_badge.dart';
+import '../../design_system/theming/waypoint_colors.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 
 class RankingScreen extends StatelessWidget {
@@ -13,23 +13,55 @@ class RankingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.rankingTitle)),
-      body: ListView(
-        padding: const EdgeInsets.all(WaypointSpacing.md),
-        children: [
-          if (result.isDegraded)
-            Padding(
-              padding: const EdgeInsets.only(bottom: WaypointSpacing.md),
-              child: WaypointBadge(label: l10n.rankingDegradedBadge),
-            ),
-          for (final item in result.items)
-            ListTile(
-              title: Text('${item.position}. ${item.name}'),
-              subtitle: Text(item.reason),
-            ),
-        ],
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(WaypointSpacing.lg),
+          children: [
+            Text(l10n.rankingTitle, style: theme.textTheme.displayLarge?.copyWith(fontSize: 22)),
+            if (result.isDegraded)
+              Padding(
+                padding: const EdgeInsets.only(top: WaypointSpacing.xs),
+                child: Text(l10n.rankingDegradedNote, style: theme.textTheme.bodyMedium),
+              ),
+            const SizedBox(height: WaypointSpacing.md),
+            for (final item in result.items)
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.md),
+                decoration: const BoxDecoration(
+                  border: Border(bottom: BorderSide(color: WaypointColors.divider)),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 40,
+                      child: Text(
+                        item.position.toString().padLeft(2, '0'),
+                        style: theme.textTheme.displayLarge?.copyWith(
+                          fontSize: 30,
+                          color: WaypointColors.divider,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: WaypointSpacing.md),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(item.name, style: theme.textTheme.titleMedium),
+                          const SizedBox(height: 3),
+                          Text(item.reason, style: theme.textTheme.bodyMedium),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

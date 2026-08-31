@@ -100,16 +100,22 @@ abstract class AppLocalizations {
     Locale('fr'),
   ];
 
-  /// No description provided for @askTitle.
+  /// No description provided for @askHeadline.
   ///
   /// In en, this message translates to:
-  /// **'Ask'**
-  String get askTitle;
+  /// **'Ask the map anything.'**
+  String get askHeadline;
+
+  /// No description provided for @askFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Top 10'**
+  String get askFieldLabel;
 
   /// No description provided for @askHint.
   ///
   /// In en, this message translates to:
-  /// **'top 10 tapas bars in Seville...'**
+  /// **'tapas bars in Seville...'**
   String get askHint;
 
   /// No description provided for @askSubmit.
@@ -121,14 +127,14 @@ abstract class AppLocalizations {
   /// No description provided for @rankingTitle.
   ///
   /// In en, this message translates to:
-  /// **'Ranking'**
+  /// **'The ten'**
   String get rankingTitle;
 
-  /// No description provided for @rankingDegradedBadge.
+  /// No description provided for @rankingDegradedNote.
   ///
   /// In en, this message translates to:
-  /// **'Fewer than 10 good candidates'**
-  String get rankingDegradedBadge;
+  /// **'fewer than 10 good candidates this time'**
+  String get rankingDegradedNote;
 
   /// No description provided for @errorNoConnection.
   ///

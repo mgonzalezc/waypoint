@@ -17,7 +17,7 @@ void main() {
       testWidgets('then the submit button is disabled', (tester) async {
         await pumpLocalizedApp(tester, const AskView());
 
-        final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
+        final button = tester.widget<TextButton>(find.byType(TextButton));
         expect(button.onPressed, isNull);
       });
     });

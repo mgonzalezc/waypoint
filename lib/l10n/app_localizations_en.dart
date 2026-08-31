@@ -10,19 +10,22 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get askTitle => 'Ask';
+  String get askHeadline => 'Ask the map anything.';
 
   @override
-  String get askHint => 'top 10 tapas bars in Seville...';
+  String get askFieldLabel => 'Your Top 10';
+
+  @override
+  String get askHint => 'tapas bars in Seville...';
 
   @override
   String get askSubmit => 'Generate ranking';
 
   @override
-  String get rankingTitle => 'Ranking';
+  String get rankingTitle => 'The ten';
 
   @override
-  String get rankingDegradedBadge => 'Fewer than 10 good candidates';
+  String get rankingDegradedNote => 'fewer than 10 good candidates this time';
 
   @override
   String get errorNoConnection =>

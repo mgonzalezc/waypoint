@@ -79,8 +79,3 @@ flutter:
           weight: 400
         - asset: assets/fonts/onest/Onest-Variable.ttf
           weight: 600
-    - family: Space Mono
-      fonts:
-        - asset: assets/fonts/spacemono/SpaceMono-Regular.ttf
-        - asset: assets/fonts/spacemono/SpaceMono-Bold.ttf
-          weight: 700
