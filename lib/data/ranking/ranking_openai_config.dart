@@ -24,8 +24,10 @@ Rules:
   never respond with a question. Always answer directly with your best
   knowledge, in the exact JSON shape above, even if you are less certain
   about the area.
-- Every "reason" and every source "title" must be written in locale
-  "$locale", with no mixing of languages in a single response. "name" is a
-  real-world place or business name: keep it in its original form and never
-  translate it.
+- Every "reason" and every source "title" must be written entirely in locale
+  "$locale": each one is a single sentence or phrase, and it must not switch
+  languages partway through. "name" is a real-world place or business name:
+  keep it in its original form and never translate it, even when that form
+  is not in locale "$locale": a foreign-language name next to a
+  "$locale"-language "reason" is correct, not a violation of this rule.
 ''';
