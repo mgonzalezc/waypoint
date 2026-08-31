@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/ranking/ranking_result.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../design_system/theming/waypoint_colors.dart';
+import '../../design_system/atoms/waypoint_numeral.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 
 class RankingScreen extends StatelessWidget {
@@ -30,22 +30,13 @@ class RankingScreen extends StatelessWidget {
             for (final item in result.items)
               Container(
                 padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.md),
-                decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: WaypointColors.divider)),
+                decoration: BoxDecoration(
+                  border: Border(bottom: BorderSide(color: theme.colorScheme.outline)),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 40,
-                      child: Text(
-                        item.position.toString().padLeft(2, '0'),
-                        style: theme.textTheme.displayLarge?.copyWith(
-                          fontSize: 30,
-                          color: WaypointColors.divider,
-                        ),
-                      ),
-                    ),
+                    SizedBox(width: 40, child: WaypointNumeral(value: item.position)),
                     const SizedBox(width: WaypointSpacing.md),
                     Expanded(
                       child: Column(
