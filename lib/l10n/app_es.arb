@@ -1,7 +1,7 @@
 {
   "@@locale": "es",
-  "askHeadline": "Pregúntale lo que sea al mapa.",
-  "askFieldLabel": "Tus 10 mejores",
+  "askHeadline": "Pregúntale al mapa lo que sea.",
+  "askFieldLabel": "Tu Top 10",
   "askHint": "bares de tapas en Sevilla...",
   "askSubmit": "Generar ranking",
   "rankingTitle": "Los diez",

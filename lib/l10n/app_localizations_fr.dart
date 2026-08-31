@@ -10,7 +10,7 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get askHeadline => 'Demandez tout à la carte.';
+  String get askHeadline => 'Demandez à la carte tout ce que vous voulez.';
 
   @override
   String get askFieldLabel => 'Votre Top 10';
