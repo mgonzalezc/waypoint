@@ -1,0 +1,11 @@
+{
+  "@@locale": "es",
+  "askTitle": "Preguntar",
+  "askHint": "mejores bares de tapas en Sevilla...",
+  "askSubmit": "Generar ranking",
+  "rankingTitle": "Ranking",
+  "rankingDegradedBadge": "Menos de 10 buenos candidatos",
+  "errorNoConnection": "Sin conexión a internet. Comprueba tu red e inténtalo de nuevo.",
+  "errorServiceUnavailable": "El servicio no está disponible temporalmente. Inténtalo en unos minutos.",
+  "errorUnexpected": "Algo ha salido mal. Inténtalo de nuevo."
+}

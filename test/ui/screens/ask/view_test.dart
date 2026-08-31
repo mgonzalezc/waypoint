@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:waypoint/data/ranking/ranking_providers.dart';
@@ -10,12 +9,13 @@ import 'package:waypoint/ui/screens/ask/view.dart';
 import 'package:waypoint/ui/screens/ranking/view.dart';
 
 import '../../../domain/ranking/ranking_repository_mock.dart';
+import '../../../support/pump_localized_app.dart';
 
 void main() {
   group('AskView', () {
     group('when there is no query typed yet', () {
       testWidgets('then the submit button is disabled', (tester) async {
-        await tester.pumpWidget(const MaterialApp(home: AskView()));
+        await pumpLocalizedApp(tester, const AskView());
 
         final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
         expect(button.onPressed, isNull);
@@ -33,16 +33,15 @@ void main() {
           () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
         ).thenAnswer((_) => completer.future);
 
-        await tester.pumpWidget(
-          ProviderScope(
-            overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
-            child: const MaterialApp(home: AskView()),
-          ),
+        await pumpLocalizedApp(
+          tester,
+          const AskView(),
+          overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
         );
 
         await tester.enterText(find.byType(TextField), 'tapas en Roma');
         await tester.pump();
-        await tester.tap(find.text('generar ranking'));
+        await tester.tap(find.text('Generate ranking'));
         // Two pumps: the pushed route is offstage for the frame it's
         // inserted on (part of the transition machinery), so it isn't
         // findable until the next frame.

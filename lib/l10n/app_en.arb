@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "askTitle": "Ask",
+  "askHint": "top 10 tapas bars in Seville...",
+  "askSubmit": "Generate ranking",
+  "rankingTitle": "Ranking",
+  "rankingDegradedBadge": "Fewer than 10 good candidates",
+  "errorNoConnection": "No internet connection. Check your network and try again.",
+  "errorServiceUnavailable": "The service is temporarily unavailable. Try again in a moment.",
+  "errorUnexpected": "Something went wrong. Please try again."
+}

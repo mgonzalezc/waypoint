@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'l10n/app_localizations.dart';
 import 'ui/design_system/theming/waypoint_theme.dart';
 import 'ui/screens/ask/view.dart';
 
@@ -27,6 +28,8 @@ class WaypointApp extends StatelessWidget {
       title: 'Waypoint',
       debugShowCheckedModeBanner: false,
       theme: buildWaypointTheme(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: const AskView(),
     );
   }
