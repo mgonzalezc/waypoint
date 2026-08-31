@@ -7,5 +7,9 @@
   "rankingDegradedBadge": "Fewer than 10 good candidates",
   "errorNoConnection": "No internet connection. Check your network and try again.",
   "errorServiceUnavailable": "The service is temporarily unavailable. Try again in a moment.",
-  "errorUnexpected": "Something went wrong. Please try again."
+  "errorUnexpected": "Something went wrong. Please try again.",
+  "verifyingPhrase1": "Scouring the globe...",
+  "verifyingPhrase2": "Taste-testing restaurants...",
+  "verifyingPhrase3": "Reading a thousand reviews...",
+  "verifyingPhrase4": "Consulting the locals..."
 }

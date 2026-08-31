@@ -5,7 +5,7 @@ import 'package:waypoint/data/ranking/ranking_providers.dart';
 import 'package:waypoint/domain/api_failure.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
-import 'package:waypoint/ui/screens/ranking/ranking_view_model.dart';
+import 'package:waypoint/ui/screens/verifying/ranking_view_model.dart';
 
 import '../../../domain/ranking/ranking_repository_mock.dart';
 
