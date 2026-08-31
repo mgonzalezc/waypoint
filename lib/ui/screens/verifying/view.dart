@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/api_failure.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../design_system/atoms/waypoint_back_button.dart';
+import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_colors.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../ranking/view.dart';
@@ -32,28 +33,26 @@ class VerifyingScreen extends ConsumerWidget {
       );
     });
 
-    return Scaffold(
-      body: SafeArea(
-        child: state.when(
-          data: (_) => const SizedBox.shrink(),
-          loading: () => const _RotatingPhrase(),
-          error: (error, _) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(WaypointSpacing.lg),
-                child: WaypointBackButton(),
-              ),
-              Expanded(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: WaypointSpacing.lg),
-                    child: Text(_errorMessage(l10n, error), textAlign: TextAlign.center),
-                  ),
+    return WaypointScaffold(
+      body: state.when(
+        data: (_) => const SizedBox.shrink(),
+        loading: () => const _RotatingPhrase(),
+        error: (error, _) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(WaypointSpacing.lg),
+              child: WaypointBackButton(),
+            ),
+            Expanded(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: WaypointSpacing.lg),
+                  child: Text(_errorMessage(l10n, error), textAlign: TextAlign.center),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

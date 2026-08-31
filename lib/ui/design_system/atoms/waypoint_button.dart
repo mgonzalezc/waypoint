@@ -28,7 +28,7 @@ class WaypointButton extends StatelessWidget {
         children: [
           Text(label, style: theme.textTheme.labelLarge?.copyWith(color: enabled ? null : theme.disabledColor)),
           const SizedBox(width: WaypointSpacing.sm),
-          Icon(Icons.arrow_forward, size: 16, color: arrowColor),
+          Icon(Icons.arrow_forward, size: WaypointSpacing.iconSm, color: arrowColor),
         ],
       ),
     );

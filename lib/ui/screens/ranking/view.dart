@@ -4,6 +4,7 @@ import '../../../domain/ranking/ranking_result.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../design_system/atoms/waypoint_back_button.dart';
 import '../../design_system/atoms/waypoint_numeral.dart';
+import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 
 class RankingScreen extends StatelessWidget {
@@ -16,46 +17,44 @@ class RankingScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
-    return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(WaypointSpacing.lg),
-          children: [
-            const WaypointBackButton(),
-            const SizedBox(height: WaypointSpacing.sm),
-            Text(l10n.rankingTitle, style: theme.textTheme.displayLarge?.copyWith(fontSize: 22)),
-            if (result.isDegraded)
-              Padding(
-                padding: const EdgeInsets.only(top: WaypointSpacing.xs),
-                child: Text(l10n.rankingDegradedNote, style: theme.textTheme.bodyMedium),
+    return WaypointScaffold(
+      body: ListView(
+        padding: const EdgeInsets.all(WaypointSpacing.lg),
+        children: [
+          const WaypointBackButton(),
+          const SizedBox(height: WaypointSpacing.sm),
+          Text(l10n.rankingTitle, style: theme.textTheme.displayLarge?.copyWith(fontSize: 22)),
+          if (result.isDegraded)
+            Padding(
+              padding: const EdgeInsets.only(top: WaypointSpacing.xs),
+              child: Text(l10n.rankingDegradedNote, style: theme.textTheme.bodyMedium),
+            ),
+          const SizedBox(height: WaypointSpacing.md),
+          for (final item in result.items)
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.md),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: theme.colorScheme.outline)),
               ),
-            const SizedBox(height: WaypointSpacing.md),
-            for (final item in result.items)
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.md),
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: theme.colorScheme.outline)),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 40, child: WaypointNumeral(value: item.position)),
-                    const SizedBox(width: WaypointSpacing.md),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(item.name, style: theme.textTheme.titleMedium),
-                          const SizedBox(height: 3),
-                          Text(item.reason, style: theme.textTheme.bodyMedium),
-                        ],
-                      ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(width: WaypointNumeral.columnWidth, child: WaypointNumeral(value: item.position)),
+                  const SizedBox(width: WaypointSpacing.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(item.name, style: theme.textTheme.titleMedium),
+                        const SizedBox(height: WaypointSpacing.xs),
+                        Text(item.reason, style: theme.textTheme.bodyMedium),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }

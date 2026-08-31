@@ -6,6 +6,9 @@ class WaypointNumeral extends StatelessWidget {
   final int value;
   final double fontSize;
 
+  /// Fits two digits at the default [fontSize] without clipping.
+  static const double columnWidth = 40;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

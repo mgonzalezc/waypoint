@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theming/waypoint_spacing.dart';
+
 class WaypointBackButton extends StatelessWidget {
   const WaypointBackButton({super.key});
 
@@ -7,7 +9,11 @@ class WaypointBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => Navigator.pop(context),
-      icon: Icon(Icons.arrow_back, size: 20, color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(
+        Icons.arrow_back,
+        size: WaypointSpacing.iconMd,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(),
       visualDensity: VisualDensity.compact,
