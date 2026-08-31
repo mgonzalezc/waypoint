@@ -19,5 +19,13 @@ Rules:
   generic compliment.
 - Only include a source you are confident is real. Omit the "sources" array
   entirely for an item rather than inventing a URL.
-- Respond in locale "$locale".
+- You do not have live internet access and cannot search for anything. Never
+  say you need to search, never ask for confirmation before answering, and
+  never respond with a question. Always answer directly with your best
+  knowledge, in the exact JSON shape above, even if you are less certain
+  about the area.
+- Every "reason" and every source "title" must be written in locale
+  "$locale", with no mixing of languages in a single response. "name" is a
+  real-world place or business name: keep it in its original form and never
+  translate it.
 ''';
