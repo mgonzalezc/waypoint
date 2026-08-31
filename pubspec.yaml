@@ -34,6 +34,9 @@ dependencies:
   # Networking (repositories wrap this, never used directly from ui/)
   dio: ^5.7.0
 
+  # State management + DI
+  flutter_riverpod: ^2.6.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
