@@ -44,6 +44,17 @@ void main() {
       });
     });
 
+    group('when there are no results at all', () {
+      testWidgets('then it says so, instead of an unexplained blank list', (tester) async {
+        const result = RankingResult(query: 'q', isDegraded: true, items: []);
+
+        await pumpLocalizedApp(tester, const RankingScreen(result: result));
+
+        expect(find.text("Couldn't find any good matches for that."), findsOneWidget);
+        expect(find.text('fewer than 10 good candidates this time'), findsNothing);
+      });
+    });
+
     group('when the user taps back', () {
       testWidgets('then it returns to the previous screen, even with a single result', (tester) async {
         const result = RankingResult(
