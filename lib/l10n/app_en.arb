@@ -6,6 +6,8 @@
   "askSubmit": "Generate ranking",
   "rankingTitle": "The ten",
   "rankingDegradedNote": "fewer than 10 good candidates this time",
+  "detailSourcesLabel": "Sources",
+  "detailSourceLaunchFailed": "Couldn't open that link.",
   "errorNoConnection": "No internet connection. Check your network and try again.",
   "errorServiceUnavailable": "The service is temporarily unavailable. Try again in a moment.",
   "errorUnexpected": "Something went wrong. Please try again.",

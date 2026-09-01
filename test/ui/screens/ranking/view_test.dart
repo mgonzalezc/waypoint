@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
+import 'package:waypoint/ui/screens/detail/view.dart';
 import 'package:waypoint/ui/screens/ranking/view.dart';
 
 import '../../../support/pump_localized_app.dart';
@@ -73,6 +74,21 @@ void main() {
 
         expect(find.byType(RankingScreen), findsNothing);
         expect(find.text('open'), findsOneWidget);
+      });
+    });
+
+    group('when the user taps an item', () {
+      testWidgets('then it navigates to that item\'s detail screen', (tester) async {
+        const item = RankingItem(id: '1', position: 1, name: 'Only Good One', reason: 'r', sources: []);
+        const result = RankingResult(query: 'q', isDegraded: false, items: [item]);
+
+        await pumpLocalizedApp(tester, const RankingScreen(result: result));
+
+        await tester.tap(find.text('Only Good One'));
+        await tester.pumpAndSettle();
+
+        final screen = tester.widget<DetailScreen>(find.byType(DetailScreen));
+        expect(screen.item.id, '1');
       });
     });
   });

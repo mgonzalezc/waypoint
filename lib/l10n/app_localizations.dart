@@ -136,6 +136,18 @@ abstract class AppLocalizations {
   /// **'fewer than 10 good candidates this time'**
   String get rankingDegradedNote;
 
+  /// No description provided for @detailSourcesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sources'**
+  String get detailSourcesLabel;
+
+  /// No description provided for @detailSourceLaunchFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open that link.'**
+  String get detailSourceLaunchFailed;
+
   /// No description provided for @errorNoConnection.
   ///
   /// In en, this message translates to:

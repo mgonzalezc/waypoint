@@ -6,6 +6,8 @@
   "askSubmit": "Générer le classement",
   "rankingTitle": "Les dix",
   "rankingDegradedNote": "moins de 10 bons candidats cette fois",
+  "detailSourcesLabel": "Sources",
+  "detailSourceLaunchFailed": "Impossible d'ouvrir ce lien.",
   "errorNoConnection": "Pas de connexion internet. Vérifiez votre réseau et réessayez.",
   "errorServiceUnavailable": "Le service est temporairement indisponible. Réessayez dans un instant.",
   "errorUnexpected": "Une erreur est survenue. Veuillez réessayer.",
