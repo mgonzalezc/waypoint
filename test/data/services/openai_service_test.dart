@@ -57,6 +57,7 @@ void main() {
             '/chat/completions',
             data: {
               'model': 'gpt-5-nano',
+              'reasoning_effort': 'low',
               'response_format': {'type': 'json_object'},
               'messages': [
                 {'role': 'system', 'content': 'system prompt'},

@@ -13,10 +13,20 @@ question, respond with a strict JSON object of the shape:
 
 Rules:
 - Return at most 10 items, ranked best first (position 1 = best).
-- If you cannot find at least 10 genuinely good candidates, return fewer
-  rather than padding the list with weak ones.
-- "reason" must explain concretely why this item beats the next one, not a
-  generic compliment.
+- Aim for 10 by default. Most well-known places and common categories
+  genuinely have at least 10 real options: find them rather than stopping
+  early. Being unsure about one small detail (an exact address, current
+  hours, a source URL) is not a reason to drop an otherwise good,
+  well-known item; include it and simply omit the detail you are unsure
+  about.
+- The only exception is a genuinely narrow topic (a small town, a rare or
+  very specific category), where fewer than 10 real options may actually
+  exist. Only then, return fewer rather than padding the list with weak or
+  made-up candidates.
+- "reason" is a real description of the item: what it actually is, what
+  makes it worth including. It may also note why it outranks the next
+  one, but a plain description is required either way, not a generic
+  compliment with no content.
 - Only include a source you are confident is real. Omit the "sources" array
   entirely for an item rather than inventing a URL.
 - You do not have live internet access and cannot search for anything. Never
