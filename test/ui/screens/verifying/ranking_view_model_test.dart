@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waypoint/data/ranking/ranking_providers.dart';
 import 'package:waypoint/domain/api_failure.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
@@ -10,6 +11,10 @@ import 'package:waypoint/ui/screens/verifying/ranking_view_model.dart';
 import '../../../domain/ranking/ranking_repository_mock.dart';
 
 void main() {
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+  });
+
   group('RankingViewModel', () {
     group('when the screen is opened for a query and 10 good results come back', () {
       test('then the 10 items are in the resulting state', () async {

@@ -136,6 +136,12 @@ abstract class AppLocalizations {
   /// **'fewer than 10 good candidates this time'**
   String get rankingDegradedNote;
 
+  /// No description provided for @rankingEmptyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t find any good matches for that.'**
+  String get rankingEmptyNote;
+
   /// No description provided for @detailSourcesLabel.
   ///
   /// In en, this message translates to:
@@ -147,6 +153,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t open that link.'**
   String get detailSourceLaunchFailed;
+
+  /// No description provided for @historyClearAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get historyClearAction;
+
+  /// No description provided for @historyClearConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear your search history?'**
+  String get historyClearConfirmMessage;
 
   /// No description provided for @errorNoConnection.
   ///

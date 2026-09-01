@@ -28,10 +28,19 @@ class AppLocalizationsEs extends AppLocalizations {
   String get rankingDegradedNote => 'menos de 10 buenos candidatos esta vez';
 
   @override
+  String get rankingEmptyNote => 'No hemos encontrado nada bueno para eso.';
+
+  @override
   String get detailSourcesLabel => 'Fuentes';
 
   @override
   String get detailSourceLaunchFailed => 'No se pudo abrir ese enlace.';
+
+  @override
+  String get historyClearAction => 'Borrar';
+
+  @override
+  String get historyClearConfirmMessage => '¿Borrar tu historial de búsquedas?';
 
   @override
   String get errorNoConnection =>
