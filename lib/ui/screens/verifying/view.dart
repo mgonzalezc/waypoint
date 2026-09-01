@@ -25,10 +25,12 @@ class VerifyingScreen extends ConsumerWidget {
 
     ref.listen(rankingViewModelProvider((query: query, locale: locale)), (previous, next) {
       next.whenOrNull(
-        data: (result) => Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => RankingScreen(result: result)),
-        ),
+        data: (result) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => RankingScreen(result: result)),
+          );
+        },
       );
     });
 

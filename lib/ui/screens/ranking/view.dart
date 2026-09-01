@@ -25,7 +25,12 @@ class RankingScreen extends StatelessWidget {
           const WaypointBackButton(),
           const SizedBox(height: WaypointSpacing.sm),
           Text(l10n.rankingTitle, style: theme.textTheme.displayLarge?.copyWith(fontSize: 22)),
-          if (result.isDegraded)
+          if (result.items.isEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: WaypointSpacing.xs),
+              child: Text(l10n.rankingEmptyNote, style: theme.textTheme.bodyMedium),
+            )
+          else if (result.isDegraded)
             Padding(
               padding: const EdgeInsets.only(top: WaypointSpacing.xs),
               child: Text(l10n.rankingDegradedNote, style: theme.textTheme.bodyMedium),

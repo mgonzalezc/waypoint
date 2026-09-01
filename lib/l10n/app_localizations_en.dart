@@ -28,10 +28,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rankingDegradedNote => 'fewer than 10 good candidates this time';
 
   @override
+  String get rankingEmptyNote => 'Couldn\'t find any good matches for that.';
+
+  @override
   String get detailSourcesLabel => 'Sources';
 
   @override
   String get detailSourceLaunchFailed => 'Couldn\'t open that link.';
+
+  @override
+  String get historyClearAction => 'Clear';
+
+  @override
+  String get historyClearConfirmMessage => 'Clear your search history?';
 
   @override
   String get errorNoConnection =>

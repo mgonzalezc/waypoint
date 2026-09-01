@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:waypoint/data/history/shared_preferences_history_repository.dart';
 import 'package:waypoint/data/ranking/ranking_providers.dart';
 import 'package:waypoint/domain/api_failure.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
@@ -14,6 +16,8 @@ import '../../../domain/ranking/ranking_repository_mock.dart';
 import '../../../support/pump_localized_app.dart';
 
 void main() {
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
   group('VerifyingScreen', () {
     group('when the search is still in flight', () {
       testWidgets('then it shows a rotating phrase', (tester) async {
@@ -62,6 +66,26 @@ void main() {
 
         final screen = tester.widget<RankingScreen>(find.byType(RankingScreen));
         expect(screen.result.items.single.name, 'La Ristra');
+      });
+    });
+
+    group('when the search succeeds with no results at all', () {
+      testWidgets('then nothing is recorded to history', (tester) async {
+        final repository = RankingRepositoryMock();
+        when(
+          () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
+        ).thenAnswer((_) async => const RankingResult(query: 'q', isDegraded: true, items: []));
+
+        await pumpLocalizedApp(
+          tester,
+          const VerifyingScreen(query: 'q', locale: 'en'),
+          overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
+        );
+        await tester.pump();
+        await tester.pump();
+
+        final historyRepository = SharedPreferencesHistoryRepository(await SharedPreferences.getInstance());
+        expect(await historyRepository.loadHistory(), isEmpty);
       });
     });
 
