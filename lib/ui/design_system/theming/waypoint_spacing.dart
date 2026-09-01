@@ -16,4 +16,5 @@ class WaypointSpacing {
 
   static const double iconSm = 16;
   static const double iconMd = 20;
+  static const double iconLg = 32;
 }
