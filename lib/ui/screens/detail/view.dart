@@ -23,7 +23,7 @@ class DetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final media = ref.watch(placeMediaViewModelProvider('${item.name}, $query')).value;
+    final media = ref.watch(placeMediaViewModelProvider((placeName: item.name, query: query))).value;
     final photoHeight = MediaQuery.sizeOf(context).width / _photoAspectRatio;
 
     return WaypointScaffold(
