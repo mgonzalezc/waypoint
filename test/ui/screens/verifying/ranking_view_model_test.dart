@@ -66,7 +66,7 @@ void main() {
 
         final history = await container.read(historyEntriesProvider.future);
         expect(history, hasLength(1));
-        expect(history.single.queries, contains('q'));
+        expect(history.single.query, 'q');
       });
     });
 

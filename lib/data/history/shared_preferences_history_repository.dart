@@ -31,21 +31,7 @@ class SharedPreferencesHistoryRepository implements HistoryRepository {
   @override
   Future<void> recordSearch({required String query, required RankingResult result}) async {
     final entries = await loadHistory();
-    final now = DateTime.now();
-    final index = entries.indexWhere((entry) => entry.result.fingerprint == result.fingerprint);
-
-    final HistoryEntry recorded;
-    if (index == -1) {
-      recorded = HistoryEntry(result: result, queries: [query], firstSearchedAt: now, lastSearchedAt: now);
-    } else {
-      final existing = entries.removeAt(index);
-      recorded = HistoryEntry(
-        result: existing.result,
-        queries: existing.queries.contains(query) ? existing.queries : [...existing.queries, query],
-        firstSearchedAt: existing.firstSearchedAt,
-        lastSearchedAt: now,
-      );
-    }
+    final recorded = HistoryEntry(result: result, query: query, searchedAt: DateTime.now());
 
     final updated = [recorded, ...entries];
     await _preferences.setString(_storageKey, jsonEncode(updated.map(historyEntryToJson).toList()));
