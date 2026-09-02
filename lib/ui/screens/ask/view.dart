@@ -79,6 +79,7 @@ class _AskViewState extends ConsumerState<AskView> {
             style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurface),
             decoration: InputDecoration(
               hintText: l10n.askHint,
+              hintStyle: theme.textTheme.bodyLarge?.copyWith(color: theme.textTheme.bodyMedium?.color),
               isDense: true,
               contentPadding: const EdgeInsets.only(bottom: WaypointSpacing.sm),
               border: const UnderlineInputBorder(),
