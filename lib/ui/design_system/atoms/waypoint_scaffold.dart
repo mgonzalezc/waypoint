@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 
 class WaypointScaffold extends StatelessWidget {
-  const WaypointScaffold({required this.body, super.key});
+  const WaypointScaffold({
+    required this.body,
+    this.appBar,
+    this.extendBodyBehindAppBar = false,
+    super.key,
+  });
 
   final Widget body;
+  final PreferredSizeWidget? appBar;
+  final bool extendBodyBehindAppBar;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: body));
+    return Scaffold(
+      appBar: appBar,
+      extendBodyBehindAppBar: extendBodyBehindAppBar,
+      body: SafeArea(top: appBar == null, child: body),
+    );
   }
 }

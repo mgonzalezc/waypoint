@@ -14,5 +14,66 @@ void main() {
         expect(find.text('content'), findsOneWidget);
       });
     });
+
+    group('when an appBar is provided', () {
+      testWidgets('then the Scaffold uses it', (tester) async {
+        const appBar = PreferredSize(preferredSize: Size.fromHeight(40), child: Text('bar'));
+
+        await tester.pumpWidget(
+          const MaterialApp(
+            home: WaypointScaffold(appBar: appBar, body: Text('content')),
+          ),
+        );
+
+        expect(find.text('bar'), findsOneWidget);
+        expect(tester.widget<Scaffold>(find.byType(Scaffold)).appBar, appBar);
+      });
+
+      testWidgets('then the body SafeArea skips the top inset', (tester) async {
+        const appBar = PreferredSize(preferredSize: Size.fromHeight(40), child: Text('bar'));
+
+        await tester.pumpWidget(
+          const MaterialApp(
+            home: WaypointScaffold(appBar: appBar, body: Text('content')),
+          ),
+        );
+
+        expect(tester.widget<SafeArea>(find.byType(SafeArea)).top, isFalse);
+      });
+    });
+
+    group('when no appBar is provided', () {
+      testWidgets('then the body SafeArea applies the top inset', (tester) async {
+        await tester.pumpWidget(
+          const MaterialApp(home: WaypointScaffold(body: Text('content'))),
+        );
+
+        expect(tester.widget<SafeArea>(find.byType(SafeArea)).top, isTrue);
+      });
+    });
+
+    group('when extendBodyBehindAppBar is true', () {
+      testWidgets('then the Scaffold extends its body behind the appBar', (tester) async {
+        const appBar = PreferredSize(preferredSize: Size.fromHeight(40), child: Text('bar'));
+
+        await tester.pumpWidget(
+          const MaterialApp(
+            home: WaypointScaffold(appBar: appBar, extendBodyBehindAppBar: true, body: Text('content')),
+          ),
+        );
+
+        expect(tester.widget<Scaffold>(find.byType(Scaffold)).extendBodyBehindAppBar, isTrue);
+      });
+    });
+
+    group('when extendBodyBehindAppBar is not specified', () {
+      testWidgets('then the Scaffold does not extend its body behind the appBar', (tester) async {
+        await tester.pumpWidget(
+          const MaterialApp(home: WaypointScaffold(body: Text('content'))),
+        );
+
+        expect(tester.widget<Scaffold>(find.byType(Scaffold)).extendBodyBehindAppBar, isFalse);
+      });
+    });
   });
 }

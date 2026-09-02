@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../domain/ranking/ranking_item.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../design_system/atoms/waypoint_app_bar.dart';
 import '../../design_system/atoms/waypoint_numeral.dart';
 import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
@@ -27,6 +28,8 @@ class DetailScreen extends ConsumerWidget {
     final photoHeight = MediaQuery.sizeOf(context).width / _photoAspectRatio;
 
     return WaypointScaffold(
+      appBar: const WaypointAppBar(),
+      extendBodyBehindAppBar: true,
       body: Stack(
         children: [
           Positioned(
@@ -80,34 +83,7 @@ class DetailScreen extends ConsumerWidget {
               ),
             ),
           ),
-          const Positioned(
-            top: WaypointSpacing.sm,
-            left: WaypointSpacing.sm,
-            child: _BackButtonChip(),
-          ),
         ],
-      ),
-    );
-  }
-}
-
-class _BackButtonChip extends StatelessWidget {
-  const _BackButtonChip();
-
-  static const double _scrimOpacity = 0.9;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface.withValues(alpha: _scrimOpacity),
-        shape: BoxShape.circle,
-      ),
-      child: IconButton(
-        onPressed: () => Navigator.pop(context),
-        icon: Icon(Icons.arrow_back, size: WaypointSpacing.iconMd, color: theme.colorScheme.onSurface),
       ),
     );
   }
