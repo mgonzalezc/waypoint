@@ -3,15 +3,11 @@ import '../ranking/ranking_result.dart';
 class HistoryEntry {
   const HistoryEntry({
     required this.result,
-    required this.queries,
-    required this.firstSearchedAt,
-    required this.lastSearchedAt,
+    required this.query,
+    required this.searchedAt,
   });
 
   final RankingResult result;
-
-  final List<String> queries;
-
-  final DateTime firstSearchedAt;
-  final DateTime lastSearchedAt;
+  final String query;
+  final DateTime searchedAt;
 }

@@ -11,9 +11,4 @@ class RankingResult {
   final List<RankingItem> items;
 
   final bool isDegraded;
-
-  String get fingerprint {
-    final names = items.map((item) => item.name.trim().toLowerCase()).toSet().toList()..sort();
-    return names.join('|');
-  }
 }

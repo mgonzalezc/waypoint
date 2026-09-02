@@ -31,38 +31,23 @@ void main() {
         final history = await repository.loadHistory();
 
         expect(history, hasLength(1));
-        expect(history.single.queries, ['tapas en Sevilla']);
+        expect(history.single.query, 'tapas en Sevilla');
         expect(history.single.result.items.single.name, 'La Ristra');
       });
     });
 
-    group('when a different query lands on the same result', () {
-      test('then it updates the existing entry instead of duplicating it', () async {
+    group('when the same result is searched again', () {
+      test('then it is recorded as a separate entry, most recent first', () async {
         SharedPreferences.setMockInitialValues({});
         final repository = SharedPreferencesHistoryRepository(await SharedPreferences.getInstance());
 
         await repository.recordSearch(query: 'tapas en Sevilla', result: _result);
-        final firstSearchedAt = (await repository.loadHistory()).single.firstSearchedAt;
-
         await repository.recordSearch(query: 'mejores bares de tapas en Sevilla', result: _result);
         final history = await repository.loadHistory();
 
-        expect(history, hasLength(1));
-        expect(history.single.queries, ['tapas en Sevilla', 'mejores bares de tapas en Sevilla']);
-        expect(history.single.firstSearchedAt, firstSearchedAt);
-      });
-    });
-
-    group('when the same query is recorded again', () {
-      test('then it does not duplicate that query in the entry', () async {
-        SharedPreferences.setMockInitialValues({});
-        final repository = SharedPreferencesHistoryRepository(await SharedPreferences.getInstance());
-
-        await repository.recordSearch(query: 'tapas en Sevilla', result: _result);
-        await repository.recordSearch(query: 'tapas en Sevilla', result: _result);
-        final history = await repository.loadHistory();
-
-        expect(history.single.queries, ['tapas en Sevilla']);
+        expect(history, hasLength(2));
+        expect(history.first.query, 'mejores bares de tapas en Sevilla');
+        expect(history.last.query, 'tapas en Sevilla');
       });
     });
 
