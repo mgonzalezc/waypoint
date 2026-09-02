@@ -40,7 +40,7 @@ class RankingScreen extends StatelessWidget {
             InkWell(
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => DetailScreen(item: item)),
+                MaterialPageRoute(builder: (_) => DetailScreen(item: item, query: result.query)),
               ),
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.md),
