@@ -9,6 +9,8 @@ import 'ui/design_system/theming/waypoint_theme.dart';
 import 'ui/screens/ask/ask_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
