@@ -10,7 +10,7 @@ import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../ranking/view.dart';
 import 'compass_needle.dart';
-import 'ranking_view_model.dart';
+import 'verifying_view_model.dart';
 
 class VerifyingScreen extends ConsumerWidget {
   const VerifyingScreen({required this.query, required this.locale, super.key});
@@ -21,9 +21,9 @@ class VerifyingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final state = ref.watch(rankingViewModelProvider((query: query, locale: locale)));
+    final state = ref.watch(verifyingViewModelProvider((query: query, locale: locale)));
 
-    ref.listen(rankingViewModelProvider((query: query, locale: locale)), (previous, next) {
+    ref.listen(verifyingViewModelProvider((query: query, locale: locale)), (previous, next) {
       next.whenOrNull(
         data: (result) {
           Navigator.pushReplacement(

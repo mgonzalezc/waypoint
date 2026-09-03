@@ -5,6 +5,15 @@ allprojects {
     }
 }
 
+project(":amplitude_flutter").configurations.all {
+    resolutionStrategy {
+        force("androidx.activity:activity:1.8.1")
+        force("androidx.activity:activity-ktx:1.8.1")
+        force("androidx.core:core:1.13.1")
+        force("androidx.core:core-ktx:1.13.1")
+    }
+}
+
 val newBuildDir: Directory =
     rootProject.layout.buildDirectory
         .dir("../../build")
