@@ -102,24 +102,6 @@ void main() {
       });
     });
 
-    group('when the reason text is long', () {
-      testWidgets('then it is limited to 2 lines with an ellipsis', (tester) async {
-        const item = RankingItem(
-          id: '1',
-          position: 1,
-          name: 'La Ristra',
-          reason: 'A long-winded description of why this place made the list, spanning several lines.',
-          sources: [],
-        );
-
-        await pumpLocalizedApp(tester, const DetailScreen(item: item, query: 'tapas en Sevilla'));
-
-        final text = tester.widget<Text>(find.text(item.reason));
-        expect(text.maxLines, 2);
-        expect(text.overflow, TextOverflow.ellipsis);
-      });
-    });
-
     group('when the item has no sources', () {
       testWidgets('then no sources section is shown', (tester) async {
         const item = RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: []);

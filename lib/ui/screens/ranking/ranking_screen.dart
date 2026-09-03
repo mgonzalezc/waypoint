@@ -65,7 +65,12 @@ class RankingScreen extends ConsumerWidget {
                         children: [
                           Text(item.name, style: theme.textTheme.titleMedium),
                           const SizedBox(height: WaypointSpacing.xs),
-                          Text(item.reason, style: theme.textTheme.bodyMedium),
+                          Text(
+                            item.reason,
+                            style: theme.textTheme.bodyMedium,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ],
                       ),
                     ),

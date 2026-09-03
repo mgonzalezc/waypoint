@@ -61,12 +61,7 @@ class DetailScreen extends ConsumerWidget {
                         style: theme.textTheme.displayLarge?.copyWith(fontSize: _headlineFontSize),
                       ),
                       const SizedBox(height: WaypointSpacing.md),
-                      Text(
-                        item.reason,
-                        style: theme.textTheme.bodyLarge,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      Text(item.reason, style: theme.textTheme.bodyLarge),
                       if (item.sources.isNotEmpty) ...[
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.lg),
