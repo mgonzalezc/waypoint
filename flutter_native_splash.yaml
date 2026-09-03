@@ -1,0 +1,8 @@
+flutter_native_splash:
+  color: "#0D0D0F"
+  image: "assets/icon/waypoint_icon.png"
+  android_12:
+    color: "#0D0D0F"
+    image: "assets/icon/waypoint_icon_foreground.png"
+  android: true
+  ios: true
