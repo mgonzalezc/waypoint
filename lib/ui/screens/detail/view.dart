@@ -8,7 +8,7 @@ import '../../design_system/atoms/waypoint_app_bar.dart';
 import '../../design_system/atoms/waypoint_numeral.dart';
 import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
-import 'place_media_view_model.dart';
+import 'detail_view_model.dart';
 
 class DetailScreen extends ConsumerWidget {
   const DetailScreen({required this.item, required this.query, super.key});
@@ -24,7 +24,8 @@ class DetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final media = ref.watch(placeMediaViewModelProvider((placeName: item.name, query: query))).value;
+    final detailQuery = (placeName: item.name, query: query);
+    final media = ref.watch(detailViewModelProvider(detailQuery)).value;
     final photoHeight = MediaQuery.sizeOf(context).width / _photoAspectRatio;
 
     return WaypointScaffold(
@@ -69,7 +70,13 @@ class DetailScreen extends ConsumerWidget {
                         Text(l10n.detailSourcesLabel, style: theme.textTheme.labelSmall),
                         for (final (index, source) in item.sources.indexed) ...[
                           if (index > 0) Divider(height: 1, color: theme.colorScheme.outline),
-                          _LinkRow(label: source.title, url: source.url),
+                          _LinkRow(
+                            label: source.title,
+                            url: source.url,
+                            onOpen: () => ref
+                                .read(detailViewModelProvider(detailQuery).notifier)
+                                .openSource(source.url),
+                          ),
                         ],
                       ],
                       const SizedBox(height: WaypointSpacing.lg),
@@ -171,12 +178,14 @@ class _FadeInNetworkImage extends StatelessWidget {
 }
 
 class _LinkRow extends StatelessWidget {
-  const _LinkRow({required this.label, required this.url});
+  const _LinkRow({required this.label, required this.url, this.onOpen});
 
   final String label;
   final String url;
+  final VoidCallback? onOpen;
 
   Future<void> _open(BuildContext context) async {
+    onOpen?.call();
     final launched = await launchUrl(Uri.parse(url));
     if (!launched && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(

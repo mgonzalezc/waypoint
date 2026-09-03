@@ -31,9 +31,18 @@ class _AskViewState extends ConsumerState<AskView> {
     if (query.isEmpty) return;
 
     final locale = Localizations.localeOf(context).languageCode;
+    ref.read(askViewModelProvider.notifier).submitQuery(query: query, locale: locale);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => VerifyingScreen(query: query, locale: locale)),
+    );
+  }
+
+  void _openHistoryEntry(HistoryEntry entry) {
+    ref.read(askViewModelProvider.notifier).openHistoryEntry(entry.query);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => RankingScreen(result: entry.result)),
     );
   }
 
@@ -110,7 +119,8 @@ class _AskViewState extends ConsumerState<AskView> {
               ),
             ),
             const SizedBox(height: WaypointSpacing.sm),
-            for (final entry in history) _HistoryRow(entry: entry),
+            for (final entry in history)
+              _HistoryRow(entry: entry, onTap: () => _openHistoryEntry(entry)),
           ],
         ],
       ),
@@ -119,19 +129,17 @@ class _AskViewState extends ConsumerState<AskView> {
 }
 
 class _HistoryRow extends StatelessWidget {
-  const _HistoryRow({required this.entry});
+  const _HistoryRow({required this.entry, required this.onTap});
 
   final HistoryEntry entry;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => RankingScreen(result: entry.result)),
-      ),
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.md),
         decoration: BoxDecoration(
