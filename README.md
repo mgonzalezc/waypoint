@@ -34,6 +34,10 @@ lib/
 
 MVVM: one ViewModel per screen. State: Riverpod.
 
+## Tech stack
+
+Flutter · [Riverpod](https://pub.dev/packages/flutter_riverpod) (state + DI) · [Dio](https://pub.dev/packages/dio) (networking) · [shared_preferences](https://pub.dev/packages/shared_preferences) (local history) · [url_launcher](https://pub.dev/packages/url_launcher) · [amplitude_flutter](https://pub.dev/packages/amplitude_flutter) (optional analytics) · [mocktail](https://pub.dev/packages/mocktail) for tests · fonts (Archivo, Onest) bundled as assets, not fetched at runtime, so tests never depend on the network.
+
 ## Running locally
 
 Requirements: Flutter 3.13+ (Dart SDK ^3.13.0), an iOS simulator/device or Android emulator/device.
@@ -62,26 +66,17 @@ flutter run \
 - `GOOGLE_PLACES_API_KEY`: Text Search (New) + Maps Static API enabled, both billed under the same key — adds a real photo and map to the detail screen.
 - `AMPLITUDE_API_KEY`: an Amplitude project's API key — enables event tracking.
 
-## Tech stack
-
-Flutter · [Riverpod](https://pub.dev/packages/flutter_riverpod) (state + DI) · [Dio](https://pub.dev/packages/dio) (networking) · [shared_preferences](https://pub.dev/packages/shared_preferences) (local history) · [url_launcher](https://pub.dev/packages/url_launcher) · [amplitude_flutter](https://pub.dev/packages/amplitude_flutter) (optional analytics) · [mocktail](https://pub.dev/packages/mocktail) for tests · fonts (Archivo, Onest) bundled as assets, not fetched at runtime, so tests never depend on the network.
-
 ## Known limitations
 
 - gpt-5-nano isn't fully deterministic: the exact same query can come back with slightly different item phrasing across separate calls. History doesn't try to detect "this is the same search as before" — an exact repeat creates a separate entry.
 - No automatic retry on a failed search — a manual back-and-retry is the only path today.
 - History is local-only and per-device (`shared_preferences`), no account, no sync.
-- No golden tests yet for the design system, despite fonts being bundled specifically to make them reliable in CI.
 
 ## Future work
 
 Ideas that are out of scope for now but worth naming rather than pretending they were never considered:
 
-- **Real grounding, not just model knowledge.** Function-calling against a real search API (Tavily/Serper) so sources are actually fetched and cited, not recalled — the more defensible answer to the review-trust problem this app is about in the first place.
-- **Conversational refinement.** "only near the center", "under €150/night" should continue the existing ranking, not start over — a real differentiator against static filters.
 - **Deterministic re-runs.** Cache by the input (query + locale), not the output, so repeating the exact same search returns the exact same result instead of a fresh (and possibly differently-worded) one, and doesn't create a new history entry.
 - **An interactive map that opens the native Maps app** — would add a second tappable target and a second failure mode; worth it only with a clearer idea of what it should do beyond what tapping a source link already does.
 - **Search parameters / trip context** (traveling as a couple, with friends, for business, solo) that bias the ranking and its reasoning, not just the query text.
-- **A real analytics dashboard.** The events are tracked; turning them into an actual read on the product — activation (% of sessions that see a completed ranking), confidence (% of users who expand a reason, a proxy for "I want to verify before I trust it"), efficiency (query-to-detail time), a retention north star (% of users who run a second, different query within 7 days) — is still to build.
-- **Save / share a ranking**, and an account to keep it across devices — would need a backend (Firebase was the original candidate) that this Labhouse-scope build deliberately doesn't have.
-- **A retry action on the error state**, instead of only back-and-search-again.
+- **Save / share a ranking**, and an account to keep it across devices — would need a backend (Firebase was the original candidate) that this build deliberately doesn't have.
