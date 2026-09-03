@@ -11,6 +11,7 @@
 /coverage/
 ios/Pods/
 ios/.symlinks/
+ios/Runner.xcodeproj/project.xcworkspace/
 android/.gradle/
 android/build/
 android/app/debug
