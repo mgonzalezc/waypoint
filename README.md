@@ -25,18 +25,21 @@ lib/
   domain/     interfaces + entities, no I/O (ranking/, history/, places/, analytics/)
   data/       implementations of those interfaces (ranking/, history/, places/, analytics/, services/)
   ui/
-    design_system/   atoms + theming, presentation only
-    screens/          one folder per screen: <screen>_screen.dart, its own
-                       <screen>_view_model.dart, and (where it tracks anything)
-                       a <screen>_analytics.dart wrapper
+    design_system/   atoms + molecules reused across features, plus theming
+    features/         one folder per feature: <feature>_screen.dart, its own
+                       <feature>_view_model.dart, a <feature>_analytics.dart
+                       wrapper where it tracks anything, and an organisms/
+                       subfolder for anything composed or with real logic
+    navigation/       go_router config; screens never import each other,
+                       only named routes
   l10n/       generated from lib/l10n/*.arb
 ```
 
-MVVM: one ViewModel per screen. State: Riverpod.
+MVVM: one ViewModel per feature. State: Riverpod.
 
 ## Tech stack
 
-Flutter · [Riverpod](https://pub.dev/packages/flutter_riverpod) (state + DI) · [Dio](https://pub.dev/packages/dio) (networking) · [shared_preferences](https://pub.dev/packages/shared_preferences) (local history) · [url_launcher](https://pub.dev/packages/url_launcher) · [amplitude_flutter](https://pub.dev/packages/amplitude_flutter) (optional analytics) · [mocktail](https://pub.dev/packages/mocktail) for tests · fonts (Archivo, Onest) bundled as assets, not fetched at runtime, so tests never depend on the network.
+Flutter · [Riverpod](https://pub.dev/packages/flutter_riverpod) (state + DI) · [go_router](https://pub.dev/packages/go_router) (navigation) · [Dio](https://pub.dev/packages/dio) (networking) · [shared_preferences](https://pub.dev/packages/shared_preferences) (local history) · [url_launcher](https://pub.dev/packages/url_launcher) · [amplitude_flutter](https://pub.dev/packages/amplitude_flutter) (optional analytics) · [mocktail](https://pub.dev/packages/mocktail) for tests · fonts (Archivo, Onest) bundled as assets, not fetched at runtime, so tests never depend on the network.
 
 ## Running locally
 
