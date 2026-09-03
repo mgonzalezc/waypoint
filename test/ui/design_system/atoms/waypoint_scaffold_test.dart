@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:waypoint/ui/design_system/atoms/waypoint_scaffold.dart';
 
@@ -12,6 +13,18 @@ void main() {
 
         expect(find.byType(Scaffold), findsOneWidget);
         expect(find.text('content'), findsOneWidget);
+      });
+
+      testWidgets('then the status bar is transparent with dark icons, not the OS default', (tester) async {
+        await tester.pumpWidget(
+          const MaterialApp(home: WaypointScaffold(body: Text('content'))),
+        );
+
+        final region = tester.widget<AnnotatedRegion<SystemUiOverlayStyle>>(
+          find.byType(AnnotatedRegion<SystemUiOverlayStyle>),
+        );
+        expect(region.value.statusBarColor, Colors.transparent);
+        expect(region.value.statusBarIconBrightness, Brightness.dark);
       });
     });
 
