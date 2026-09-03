@@ -88,6 +88,25 @@ void main() {
       });
     });
 
+    group('when an item\'s reason is long', () {
+      testWidgets('then it is limited to 2 lines with an ellipsis', (tester) async {
+        const item = RankingItem(
+          id: '1',
+          position: 1,
+          name: 'Only Good One',
+          reason: 'A long-winded description of why this place made the list, spanning several lines.',
+          sources: [],
+        );
+        const result = RankingResult(query: 'q', isDegraded: false, items: [item]);
+
+        await pumpLocalizedApp(tester, const RankingScreen(result: result));
+
+        final text = tester.widget<Text>(find.text(item.reason));
+        expect(text.maxLines, 2);
+        expect(text.overflow, TextOverflow.ellipsis);
+      });
+    });
+
     group('when the user taps an item', () {
       testWidgets('then it navigates to that item\'s detail screen', (tester) async {
         const item = RankingItem(id: '1', position: 1, name: 'Only Good One', reason: 'r', sources: []);
