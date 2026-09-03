@@ -68,7 +68,7 @@ flutter run \
 
 ## Known limitations
 
-- gpt-5-nano isn't fully deterministic: the exact same query can come back with slightly different item phrasing across separate calls. History doesn't try to detect "this is the same search as before" — an exact repeat creates a separate entry.
+- GPT isn't fully deterministic: the exact same query can come back with slightly different item phrasing across separate calls. History doesn't try to detect "this is the same search as before" — an exact repeat creates a separate entry.
 - No automatic retry on a failed search — a manual back-and-retry is the only path today.
 - History is local-only and per-device (`shared_preferences`), no account, no sync.
 
