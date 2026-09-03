@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../domain/history/history_entry.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../design_system/atoms/waypoint_button.dart';
-import '../../design_system/atoms/waypoint_scaffold.dart';
+import '../../design_system/templates/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../../navigation/app_routes.dart';
 import 'ask_view_model.dart';

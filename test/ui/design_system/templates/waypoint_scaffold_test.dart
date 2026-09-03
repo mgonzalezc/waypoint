@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:waypoint/ui/design_system/atoms/waypoint_scaffold.dart';
+import 'package:waypoint/ui/design_system/templates/waypoint_scaffold.dart';
 
 void main() {
   group('WaypointScaffold', () {

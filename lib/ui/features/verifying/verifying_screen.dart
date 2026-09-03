@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../domain/api_failure.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../design_system/atoms/waypoint_back_button.dart';
-import '../../design_system/atoms/waypoint_scaffold.dart';
+import '../../design_system/templates/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../../navigation/app_routes.dart';
 import 'organisms/rotating_phrase.dart';

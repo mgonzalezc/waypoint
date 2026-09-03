@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/ranking/ranking_item.dart';
 import '../../design_system/atoms/waypoint_numeral.dart';
-import '../../design_system/atoms/waypoint_scaffold.dart';
+import '../../design_system/templates/waypoint_scaffold.dart';
 import '../../design_system/molecules/waypoint_app_bar.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import 'detail_view_model.dart';
