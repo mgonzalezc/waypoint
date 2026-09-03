@@ -25,6 +25,7 @@ void main() {
         );
         expect(region.value.statusBarColor, Colors.transparent);
         expect(region.value.statusBarIconBrightness, Brightness.dark);
+        expect(region.value.statusBarBrightness, Brightness.light);
       });
     });
 
