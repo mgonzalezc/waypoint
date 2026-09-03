@@ -6,6 +6,7 @@ import 'waypoint_typography.dart';
 ThemeData buildWaypointTheme() {
   final colorScheme = const ColorScheme.light().copyWith(
     surface: WaypointColors.background,
+    surfaceTint: Colors.transparent,
     primary: WaypointColors.amber,
     onPrimary: WaypointColors.onAmber,
     error: WaypointColors.error,
