@@ -7,8 +7,8 @@ import '../../design_system/templates/waypoint_scaffold.dart';
 import '../../design_system/molecules/waypoint_app_bar.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import 'detail_view_model.dart';
-import 'organisms/map_preview.dart';
-import 'organisms/photo_background.dart';
+import 'molecules/map_preview.dart';
+import 'molecules/photo_background.dart';
 import 'organisms/sources_list.dart';
 
 class DetailScreen extends ConsumerWidget {

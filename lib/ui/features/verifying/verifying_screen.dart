@@ -8,7 +8,7 @@ import '../../design_system/atoms/waypoint_back_button.dart';
 import '../../design_system/templates/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../../navigation/app_routes.dart';
-import 'organisms/rotating_phrase.dart';
+import 'molecules/rotating_phrase.dart';
 import 'verifying_view_model.dart';
 
 class VerifyingScreen extends ConsumerWidget {
