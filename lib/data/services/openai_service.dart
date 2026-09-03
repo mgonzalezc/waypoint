@@ -21,7 +21,7 @@ class OpenAiService {
     final response = await _dio.post<Map<String, dynamic>>(
       '/chat/completions',
       data: {
-        'model': 'gpt-5-nano',
+        'model': 'gpt-5.4-mini',
         'reasoning_effort': 'low',
         'response_format': {'type': 'json_object'},
         'messages': [
