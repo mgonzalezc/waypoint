@@ -6,7 +6,7 @@ An AI travel ranking app. You ask a question ("top 10 romantic restaurants in Ro
 
 - Travel decisions are infrequent, expensive, and cut across too many fragmented sources (Skyscanner, Booking, Tripadvisor, Maps)
 - Review trust is eroding: Tripadvisor reported roughly 8% of its 2024 reviews as fake, and review-boosting accounts for over half of detected fraud
-- Waypoint's answer: a hard limit of ten results, each with a reasoned, sourced explanation instead of an opaque score
+- Waypoint's answer: a hard limit of ten results, each with a reasoned, sourced explanation
 
 ## Features
 
@@ -18,7 +18,7 @@ An AI travel ranking app. You ask a question ("top 10 romantic restaurants in Ro
 
 ## Architecture
 
-Layer-first, following [Flutter's own architecture guide](https://docs.flutter.dev/app-architecture/guide):
+Clean Architecture, layer-first, following [Flutter's own architecture guide](https://docs.flutter.dev/app-architecture/guide):
 
 ```
 lib/
