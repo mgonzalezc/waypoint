@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../../domain/api_failure.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../design_system/atoms/waypoint_back_button.dart';
-import '../../design_system/templates/waypoint_scaffold.dart';
+import '../../design_system/widgets/waypoint_back_button.dart';
+import '../../design_system/widgets/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../../navigation/app_routes.dart';
-import 'molecules/rotating_phrase.dart';
+import 'widgets/rotating_phrase.dart';
 import 'verifying_view_model.dart';
 
 class VerifyingScreen extends ConsumerWidget {

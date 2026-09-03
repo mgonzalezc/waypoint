@@ -25,11 +25,12 @@ lib/
   domain/     interfaces + entities, no I/O (ranking/, history/, places/, analytics/)
   data/       implementations of those interfaces (ranking/, history/, places/, analytics/, services/)
   ui/
-    design_system/   atoms + molecules reused across features, plus theming
+    design_system/   shared widgets (button, app bar, scaffold...) reused
+                       across features, plus theming
     features/         one folder per feature: <feature>_screen.dart, its own
                        <feature>_view_model.dart, a <feature>_analytics.dart
-                       wrapper where it tracks anything, and an organisms/
-                       subfolder for anything composed or with real logic
+                       wrapper where it tracks anything, and a widgets/
+                       subfolder for anything local to that feature
     navigation/       go_router config; screens never import each other,
                        only named routes
   l10n/       generated from lib/l10n/*.arb

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../domain/history/history_entry.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../design_system/theming/waypoint_spacing.dart';
-import '../molecules/history_row.dart';
+import 'history_row.dart';
 
 class HistoryList extends StatelessWidget {
   const HistoryList({required this.entries, required this.onEntryTap, required this.onClear, super.key});

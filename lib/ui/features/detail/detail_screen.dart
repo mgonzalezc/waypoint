@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/ranking/ranking_item.dart';
-import '../../design_system/atoms/waypoint_numeral.dart';
-import '../../design_system/templates/waypoint_scaffold.dart';
-import '../../design_system/molecules/waypoint_app_bar.dart';
+import '../../design_system/widgets/waypoint_app_bar.dart';
+import '../../design_system/widgets/waypoint_numeral.dart';
+import '../../design_system/widgets/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import 'detail_view_model.dart';
-import 'molecules/map_preview.dart';
-import 'molecules/photo_background.dart';
-import 'organisms/sources_list.dart';
+import 'widgets/map_preview.dart';
+import 'widgets/photo_background.dart';
+import 'widgets/sources_list.dart';
 
 class DetailScreen extends ConsumerWidget {
   const DetailScreen({required this.item, required this.query, super.key});

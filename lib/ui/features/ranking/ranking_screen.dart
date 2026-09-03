@@ -5,11 +5,11 @@ import 'package:go_router/go_router.dart';
 import '../../../domain/ranking/ranking_item.dart';
 import '../../../domain/ranking/ranking_result.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../design_system/templates/waypoint_scaffold.dart';
-import '../../design_system/molecules/waypoint_app_bar.dart';
+import '../../design_system/widgets/waypoint_app_bar.dart';
+import '../../design_system/widgets/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../../navigation/app_routes.dart';
-import 'organisms/ranking_list.dart';
+import 'widgets/ranking_list.dart';
 import 'ranking_view_model.dart';
 
 class RankingScreen extends ConsumerWidget {

@@ -4,7 +4,7 @@ import '../../../../domain/ranking/ranking_item.dart';
 import '../../../../domain/ranking/ranking_result.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../design_system/theming/waypoint_spacing.dart';
-import '../molecules/ranking_row.dart';
+import 'ranking_row.dart';
 
 class RankingList extends StatelessWidget {
   const RankingList({required this.result, required this.onItemTap, super.key});

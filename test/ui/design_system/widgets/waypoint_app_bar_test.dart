@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:waypoint/ui/design_system/molecules/waypoint_app_bar.dart';
+import 'package:waypoint/ui/design_system/widgets/waypoint_app_bar.dart';
 
 void main() {
   group('WaypointAppBar', () {

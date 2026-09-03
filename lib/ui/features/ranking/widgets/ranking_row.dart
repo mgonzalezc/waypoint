@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../domain/ranking/ranking_item.dart';
-import '../../../design_system/atoms/waypoint_numeral.dart';
+import '../../../design_system/widgets/waypoint_numeral.dart';
 import '../../../design_system/theming/waypoint_spacing.dart';
 
 class RankingRow extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:waypoint/ui/design_system/atoms/waypoint_numeral.dart';
+import 'package:waypoint/ui/design_system/widgets/waypoint_numeral.dart';
 
 void main() {
   group('WaypointNumeral', () {
