@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'l10n/app_localizations.dart';
 import 'ui/design_system/theming/waypoint_theme.dart';
-import 'ui/screens/ask/ask_screen.dart';
+import 'ui/features/ask/ask_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
