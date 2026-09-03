@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'l10n/app_localizations.dart';
 import 'ui/design_system/theming/waypoint_theme.dart';
-import 'ui/screens/ask/view.dart';
+import 'ui/screens/ask/ask_screen.dart';
 
 void main() {
   FlutterError.onError = (details) {
@@ -30,7 +30,7 @@ class WaypointApp extends StatelessWidget {
       theme: buildWaypointTheme(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const AskView(),
+      home: const AskScreen(),
     );
   }
 }

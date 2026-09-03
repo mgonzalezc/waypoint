@@ -8,7 +8,7 @@ import '../../design_system/atoms/waypoint_app_bar.dart';
 import '../../design_system/atoms/waypoint_numeral.dart';
 import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
-import '../detail/view.dart';
+import '../detail/detail_screen.dart';
 import 'ranking_view_model.dart';
 
 class RankingScreen extends ConsumerWidget {

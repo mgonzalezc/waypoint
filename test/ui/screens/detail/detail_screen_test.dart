@@ -10,7 +10,7 @@ import 'package:waypoint/data/places/place_media_providers.dart';
 import 'package:waypoint/domain/places/place_media.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/source_citation.dart';
-import 'package:waypoint/ui/screens/detail/view.dart';
+import 'package:waypoint/ui/screens/detail/detail_screen.dart';
 
 import '../../../domain/places/place_media_repository_mock.dart';
 import '../../../support/pump_localized_app.dart';

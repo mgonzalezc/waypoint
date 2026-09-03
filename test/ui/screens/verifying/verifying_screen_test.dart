@@ -9,8 +9,8 @@ import 'package:waypoint/data/ranking/ranking_providers.dart';
 import 'package:waypoint/domain/api_failure.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
-import 'package:waypoint/ui/screens/ranking/view.dart';
-import 'package:waypoint/ui/screens/verifying/view.dart';
+import 'package:waypoint/ui/screens/ranking/ranking_screen.dart';
+import 'package:waypoint/ui/screens/verifying/verifying_screen.dart';
 
 import '../../../domain/ranking/ranking_repository_mock.dart';
 import '../../../support/pump_localized_app.dart';

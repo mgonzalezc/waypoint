@@ -8,7 +8,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../design_system/atoms/waypoint_back_button.dart';
 import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
-import '../ranking/view.dart';
+import '../ranking/ranking_screen.dart';
 import 'compass_needle.dart';
 import 'verifying_view_model.dart';
 
