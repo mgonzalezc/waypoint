@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,7 +7,7 @@ import '../../design_system/atoms/waypoint_back_button.dart';
 import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../ranking/ranking_screen.dart';
-import 'compass_needle.dart';
+import 'rotating_phrase.dart';
 import 'verifying_view_model.dart';
 
 class VerifyingScreen extends ConsumerWidget {
@@ -37,7 +35,7 @@ class VerifyingScreen extends ConsumerWidget {
     return WaypointScaffold(
       body: state.when(
         data: (_) => const SizedBox.shrink(),
-        loading: () => const _RotatingPhrase(),
+        loading: () => const RotatingPhrase(),
         error: (error, _) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -66,51 +64,5 @@ class VerifyingScreen extends ConsumerWidget {
       ServiceUnavailable() => l10n.errorServiceUnavailable,
       UnexpectedFailure() => l10n.errorUnexpected,
     };
-  }
-}
-
-class _RotatingPhrase extends StatefulWidget {
-  const _RotatingPhrase();
-
-  @override
-  State<_RotatingPhrase> createState() => _RotatingPhraseState();
-}
-
-class _RotatingPhraseState extends State<_RotatingPhrase> {
-  late final Timer _timer;
-  int _index = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 2), (_) => setState(() => _index++));
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final phrases = [
-      l10n.verifyingPhrase1,
-      l10n.verifyingPhrase2,
-      l10n.verifyingPhrase3,
-      l10n.verifyingPhrase4,
-    ];
-
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const CompassNeedle(),
-          const SizedBox(height: WaypointSpacing.lg),
-          Text(phrases[_index % phrases.length], style: Theme.of(context).textTheme.labelLarge),
-        ],
-      ),
-    );
   }
 }

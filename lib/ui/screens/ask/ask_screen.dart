@@ -9,6 +9,7 @@ import '../../design_system/theming/waypoint_spacing.dart';
 import '../ranking/ranking_screen.dart';
 import '../verifying/verifying_screen.dart';
 import 'ask_view_model.dart';
+import 'history_list.dart';
 
 class AskScreen extends ConsumerStatefulWidget {
   const AskScreen({super.key});
@@ -46,29 +47,6 @@ class _AskScreenState extends ConsumerState<AskScreen> {
     );
   }
 
-  Future<void> _showConfirmAndClearHistoryDialog() async {
-    final l10n = AppLocalizations.of(context)!;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Text(l10n.historyClearConfirmMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(l10n.historyClearAction),
-          ),
-        ],
-      ),
-    );
-    if (confirmed != true) return;
-
-    await ref.read(askViewModelProvider.notifier).clearHistory();
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -103,61 +81,12 @@ class _AskScreenState extends ConsumerState<AskScreen> {
               onPressed: value.text.trim().isEmpty ? null : _submit,
             ),
           ),
-          if (history.isNotEmpty) ...[
-            const SizedBox(height: WaypointSpacing.xxl),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: _showConfirmAndClearHistoryDialog,
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  minimumSize: Size.zero,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  foregroundColor: theme.colorScheme.onSurface,
-                ),
-                child: Text(l10n.historyClearAction, style: theme.textTheme.labelSmall),
-              ),
-            ),
-            const SizedBox(height: WaypointSpacing.sm),
-            for (final entry in history)
-              _HistoryRow(entry: entry, onTap: () => _openHistoryEntry(entry)),
-          ],
+          HistoryList(
+            entries: history,
+            onEntryTap: _openHistoryEntry,
+            onClear: () => ref.read(askViewModelProvider.notifier).clearHistory(),
+          ),
         ],
-      ),
-    );
-  }
-}
-
-class _HistoryRow extends StatelessWidget {
-  const _HistoryRow({required this.entry, required this.onTap});
-
-  final HistoryEntry entry;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.md),
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: theme.colorScheme.outline)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(entry.query, style: theme.textTheme.titleMedium),
-            const SizedBox(height: WaypointSpacing.xs),
-            Text(
-              entry.result.items.map((item) => item.name).join(', '),
-              style: theme.textTheme.bodyMedium,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/ranking/ranking_item.dart';
 import '../../../domain/ranking/ranking_result.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../design_system/atoms/waypoint_app_bar.dart';
-import '../../design_system/atoms/waypoint_numeral.dart';
 import '../../design_system/atoms/waypoint_scaffold.dart';
+import '../../design_system/molecules/waypoint_app_bar.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../detail/detail_screen.dart';
+import 'ranking_list.dart';
 import 'ranking_view_model.dart';
 
 class RankingScreen extends ConsumerWidget {
@@ -35,49 +35,7 @@ class RankingScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(WaypointSpacing.lg),
         children: [
           Text(l10n.rankingTitle, style: theme.textTheme.displayLarge?.copyWith(fontSize: 22)),
-          if (result.items.isEmpty)
-            Padding(
-              padding: const EdgeInsets.only(top: WaypointSpacing.xs),
-              child: Text(l10n.rankingEmptyNote, style: theme.textTheme.bodyMedium),
-            )
-          else if (result.isDegraded)
-            Padding(
-              padding: const EdgeInsets.only(top: WaypointSpacing.xs),
-              child: Text(l10n.rankingDegradedNote, style: theme.textTheme.bodyMedium),
-            ),
-          const SizedBox(height: WaypointSpacing.md),
-          for (final item in result.items)
-            InkWell(
-              onTap: () => _openDetail(context, ref, item),
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.md),
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: theme.colorScheme.outline)),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(width: WaypointNumeral.columnWidth, child: WaypointNumeral(value: item.position)),
-                    const SizedBox(width: WaypointSpacing.md),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(item.name, style: theme.textTheme.titleMedium),
-                          const SizedBox(height: WaypointSpacing.xs),
-                          Text(
-                            item.reason,
-                            style: theme.textTheme.bodyMedium,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          RankingList(result: result, onItemTap: (item) => _openDetail(context, ref, item)),
         ],
       ),
     );
