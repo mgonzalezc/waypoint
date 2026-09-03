@@ -10,12 +10,16 @@ import 'ui/screens/ask/ask_screen.dart';
 void main() {
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
-    debugPrint('Uncaught Flutter error: ${details.exception}');
+    // Crashlytics / Sentry: FirebaseCrashlytics.instance.recordFlutterFatalError(details)
   };
 
   runZonedGuarded(
     () => runApp(const ProviderScope(child: WaypointApp())),
-    (error, stack) => debugPrint('Uncaught zone error: $error'),
+    (error, stack) {
+      debugPrint('Uncaught zone error: $error');
+      debugPrintStack(stackTrace: stack);
+      // Crashlytics / Sentry: FirebaseCrashlytics.instance.recordError(error, stack, fatal: true)
+    },
   );
 }
 
