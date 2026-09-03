@@ -12,6 +12,7 @@
 ios/Pods/
 ios/.symlinks/
 android/.gradle/
+android/build/
 android/app/debug
 android/app/profile
 android/app/release
