@@ -4,8 +4,10 @@ import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
 import 'package:waypoint/ui/features/detail/detail_screen.dart';
 import 'package:waypoint/ui/features/ranking/ranking_screen.dart';
+import 'package:waypoint/ui/navigation/app_router.dart';
 
 import '../../../support/pump_localized_app.dart';
+import '../../../support/pump_routed_app.dart';
 
 void main() {
   group('RankingScreen', () {
@@ -112,7 +114,7 @@ void main() {
         const item = RankingItem(id: '1', position: 1, name: 'Only Good One', reason: 'r', sources: []);
         const result = RankingResult(query: 'q', isDegraded: false, items: [item]);
 
-        await pumpLocalizedApp(tester, const RankingScreen(result: result));
+        await pumpRoutedApp(tester, const RankingScreen(result: result), additionalRoutes: [detailRoute]);
 
         await tester.tap(find.text('Only Good One'));
         await tester.pumpAndSettle();

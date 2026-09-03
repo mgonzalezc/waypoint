@@ -11,9 +11,11 @@ import 'package:waypoint/domain/ranking/ranking_result.dart';
 import 'package:waypoint/ui/features/ask/ask_screen.dart';
 import 'package:waypoint/ui/features/ranking/ranking_screen.dart';
 import 'package:waypoint/ui/features/verifying/verifying_screen.dart';
+import 'package:waypoint/ui/navigation/app_router.dart';
 
 import '../../../domain/ranking/ranking_repository_mock.dart';
 import '../../../support/pump_localized_app.dart';
+import '../../../support/pump_routed_app.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -42,10 +44,11 @@ void main() {
           () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
         ).thenAnswer((_) => completer.future);
 
-        await pumpLocalizedApp(
+        await pumpRoutedApp(
           tester,
           const AskScreen(),
           overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
+          additionalRoutes: [verifyingRoute],
         );
 
         await tester.enterText(find.byType(TextField), 'tapas en Roma');
@@ -100,7 +103,7 @@ void main() {
         );
         await repository.recordSearch(query: 'tapas en Sevilla', result: result);
 
-        await pumpLocalizedApp(tester, const AskScreen());
+        await pumpRoutedApp(tester, const AskScreen(), additionalRoutes: [rankingRoute]);
         await tester.pump();
 
         await tester.tap(find.text('tapas en Sevilla'));

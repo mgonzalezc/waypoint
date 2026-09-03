@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/history/history_entry.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../design_system/atoms/waypoint_button.dart';
 import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
-import '../ranking/ranking_screen.dart';
-import '../verifying/verifying_screen.dart';
+import '../../navigation/app_routes.dart';
 import 'ask_view_model.dart';
 import 'organisms/history_list.dart';
 
@@ -33,18 +33,12 @@ class _AskScreenState extends ConsumerState<AskScreen> {
 
     final locale = Localizations.localeOf(context).languageCode;
     ref.read(askViewModelProvider.notifier).submitQuery(query: query, locale: locale);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => VerifyingScreen(query: query, locale: locale)),
-    );
+    context.pushNamed(AppRoutes.verifyingName, extra: (query: query, locale: locale));
   }
 
   void _openHistoryEntry(HistoryEntry entry) {
     ref.read(askViewModelProvider.notifier).openHistoryEntry(entry.query);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => RankingScreen(result: entry.result)),
-    );
+    context.pushNamed(AppRoutes.rankingName, extra: entry.result);
   }
 
   @override

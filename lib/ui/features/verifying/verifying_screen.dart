@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/api_failure.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../design_system/atoms/waypoint_back_button.dart';
 import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
-import '../ranking/ranking_screen.dart';
+import '../../navigation/app_routes.dart';
 import 'organisms/rotating_phrase.dart';
 import 'verifying_view_model.dart';
 
@@ -24,10 +25,7 @@ class VerifyingScreen extends ConsumerWidget {
     ref.listen(verifyingViewModelProvider((query: query, locale: locale)), (previous, next) {
       next.whenOrNull(
         data: (result) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => RankingScreen(result: result)),
-          );
+          context.pushReplacementNamed(AppRoutes.rankingName, extra: result);
         },
       );
     });

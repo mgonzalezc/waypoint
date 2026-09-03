@@ -11,9 +11,11 @@ import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
 import 'package:waypoint/ui/features/ranking/ranking_screen.dart';
 import 'package:waypoint/ui/features/verifying/verifying_screen.dart';
+import 'package:waypoint/ui/navigation/app_router.dart';
 
 import '../../../domain/ranking/ranking_repository_mock.dart';
 import '../../../support/pump_localized_app.dart';
+import '../../../support/pump_routed_app.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -48,10 +50,11 @@ void main() {
           () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
         ).thenAnswer((_) => completer.future);
 
-        await pumpLocalizedApp(
+        await pumpRoutedApp(
           tester,
           const VerifyingScreen(query: 'q', locale: 'en'),
           overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
+          additionalRoutes: [rankingRoute],
         );
         await tester.pump();
 
@@ -76,10 +79,11 @@ void main() {
           () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
         ).thenAnswer((_) async => const RankingResult(query: 'q', isDegraded: true, items: []));
 
-        await pumpLocalizedApp(
+        await pumpRoutedApp(
           tester,
           const VerifyingScreen(query: 'q', locale: 'en'),
           overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
+          additionalRoutes: [rankingRoute],
         );
         await tester.pump();
         await tester.pump();
