@@ -8,9 +8,9 @@ import 'package:waypoint/data/history/shared_preferences_history_repository.dart
 import 'package:waypoint/data/ranking/ranking_providers.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
-import 'package:waypoint/ui/screens/ask/view.dart';
-import 'package:waypoint/ui/screens/ranking/view.dart';
-import 'package:waypoint/ui/screens/verifying/view.dart';
+import 'package:waypoint/ui/screens/ask/ask_screen.dart';
+import 'package:waypoint/ui/screens/ranking/ranking_screen.dart';
+import 'package:waypoint/ui/screens/verifying/verifying_screen.dart';
 
 import '../../../domain/ranking/ranking_repository_mock.dart';
 import '../../../support/pump_localized_app.dart';
@@ -18,10 +18,10 @@ import '../../../support/pump_localized_app.dart';
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  group('AskView', () {
+  group('AskScreen', () {
     group('when there is no query typed yet', () {
       testWidgets('then the submit button is disabled', (tester) async {
-        await pumpLocalizedApp(tester, const AskView());
+        await pumpLocalizedApp(tester, const AskScreen());
 
         final button = tester.widget<TextButton>(find.ancestor(
           of: find.text('Generate ranking'),
@@ -44,7 +44,7 @@ void main() {
 
         await pumpLocalizedApp(
           tester,
-          const AskView(),
+          const AskScreen(),
           overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
         );
 
@@ -64,7 +64,7 @@ void main() {
 
     group('when there is no search history yet', () {
       testWidgets('then it renders with just the field and the button', (tester) async {
-        await pumpLocalizedApp(tester, const AskView());
+        await pumpLocalizedApp(tester, const AskScreen());
         await tester.pump();
 
         expect(find.byType(TextField), findsOneWidget);
@@ -82,7 +82,7 @@ void main() {
         );
         await repository.recordSearch(query: 'tapas en Sevilla', result: result);
 
-        await pumpLocalizedApp(tester, const AskView());
+        await pumpLocalizedApp(tester, const AskScreen());
         await tester.pump();
 
         expect(find.text('tapas en Sevilla'), findsOneWidget);
@@ -100,7 +100,7 @@ void main() {
         );
         await repository.recordSearch(query: 'tapas en Sevilla', result: result);
 
-        await pumpLocalizedApp(tester, const AskView());
+        await pumpLocalizedApp(tester, const AskScreen());
         await tester.pump();
 
         await tester.tap(find.text('tapas en Sevilla'));
@@ -122,7 +122,7 @@ void main() {
         );
         await repository.recordSearch(query: 'tapas en Sevilla', result: result);
 
-        await pumpLocalizedApp(tester, const AskView());
+        await pumpLocalizedApp(tester, const AskScreen());
         await tester.pump();
 
         await tester.tap(find.text('Clear'));
@@ -144,7 +144,7 @@ void main() {
         );
         await repository.recordSearch(query: 'tapas en Sevilla', result: result);
 
-        await pumpLocalizedApp(tester, const AskView());
+        await pumpLocalizedApp(tester, const AskScreen());
         await tester.pump();
 
         await tester.tap(find.text('Clear'));

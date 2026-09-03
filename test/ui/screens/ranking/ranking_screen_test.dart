@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
-import 'package:waypoint/ui/screens/detail/view.dart';
-import 'package:waypoint/ui/screens/ranking/view.dart';
+import 'package:waypoint/ui/screens/detail/detail_screen.dart';
+import 'package:waypoint/ui/screens/ranking/ranking_screen.dart';
 
 import '../../../support/pump_localized_app.dart';
 

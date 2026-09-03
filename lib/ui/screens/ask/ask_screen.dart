@@ -6,18 +6,18 @@ import '../../../l10n/app_localizations.dart';
 import '../../design_system/atoms/waypoint_button.dart';
 import '../../design_system/atoms/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
-import '../ranking/view.dart';
-import '../verifying/view.dart';
+import '../ranking/ranking_screen.dart';
+import '../verifying/verifying_screen.dart';
 import 'ask_view_model.dart';
 
-class AskView extends ConsumerStatefulWidget {
-  const AskView({super.key});
+class AskScreen extends ConsumerStatefulWidget {
+  const AskScreen({super.key});
 
   @override
-  ConsumerState<AskView> createState() => _AskViewState();
+  ConsumerState<AskScreen> createState() => _AskScreenState();
 }
 
-class _AskViewState extends ConsumerState<AskView> {
+class _AskScreenState extends ConsumerState<AskScreen> {
   final _controller = TextEditingController();
 
   @override
