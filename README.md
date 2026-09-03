@@ -1,6 +1,6 @@
 # Waypoint
 
-An AI travel ranking app. You ask a question ("top 10 romantic restaurants in Rome"), Waypoint always answers with exactly ten, ranked, with the reason each one beats the next and the sources behind it. Never a star rating you have to take on faith.
+An AI travel ranking app. You ask a question ("top 10 romantic restaurants in Rome"), Waypoint answers with up to ten, ranked, with the reason each one beats the next and the sources behind it. Never a star rating you have to take on faith.
 
 ## Why
 
