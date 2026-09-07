@@ -5,7 +5,6 @@ class WaypointColors {
   const WaypointColors._();
 
   static const Color background = Color(0xFFFBFAF7);
-  static const Color surfaceRaised = Color(0xFFF3F1EA);
 
   static const Color textPrimary = Color(0xFF17150F);
   static const Color textSecondary = Color(0xFF857F6D);

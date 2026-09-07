@@ -5,13 +5,11 @@ import '../../domain/ranking/source_citation.dart';
 
 Map<String, dynamic> historyEntryToJson(HistoryEntry entry) => {
   'result': _resultToJson(entry.result),
-  'query': entry.query,
   'searchedAt': entry.searchedAt.toIso8601String(),
 };
 
 HistoryEntry historyEntryFromJson(Map<String, dynamic> json) => HistoryEntry(
   result: _resultFromJson(json['result'] as Map<String, dynamic>),
-  query: json['query'] as String,
   searchedAt: DateTime.parse(json['searchedAt'] as String),
 );
 

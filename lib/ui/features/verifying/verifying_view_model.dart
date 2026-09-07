@@ -18,7 +18,7 @@ class VerifyingViewModel extends AutoDisposeFamilyAsyncNotifier<RankingResult, V
 
     if (result.items.isNotEmpty) {
       final historyRepository = await ref.read(historyRepositoryProvider.future);
-      await historyRepository.recordSearch(query: arg.query, result: result);
+      await historyRepository.recordSearch(result: result);
       ref.invalidate(historyEntriesProvider);
     }
 

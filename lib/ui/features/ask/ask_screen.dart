@@ -37,7 +37,7 @@ class _AskScreenState extends ConsumerState<AskScreen> {
   }
 
   void _openHistoryEntry(HistoryEntry entry) {
-    ref.read(askViewModelProvider.notifier).openHistoryEntry(entry.query);
+    ref.read(askViewModelProvider.notifier).openHistoryEntry(entry.result.query);
     context.pushNamed(AppRoutes.rankingName, extra: entry.result);
   }
 

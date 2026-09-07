@@ -31,26 +31,26 @@ class VerifyingScreen extends ConsumerWidget {
     });
 
     return WaypointScaffold(
-      body: state.when(
-        data: (_) => const SizedBox.shrink(),
-        loading: () => const RotatingPhrase(),
-        error: (error, _) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(WaypointSpacing.lg),
-              child: WaypointBackButton(),
-            ),
-            Expanded(
-              child: Center(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(WaypointSpacing.lg),
+            child: WaypointBackButton(),
+          ),
+          Expanded(
+            child: state.when(
+              data: (_) => const SizedBox.shrink(),
+              loading: () => const RotatingPhrase(),
+              error: (error, _) => Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: WaypointSpacing.lg),
                   child: Text(_errorMessage(l10n, error), textAlign: TextAlign.center),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

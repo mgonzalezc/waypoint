@@ -29,9 +29,9 @@ class SharedPreferencesHistoryRepository implements HistoryRepository {
   }
 
   @override
-  Future<void> recordSearch({required String query, required RankingResult result}) async {
+  Future<void> recordSearch({required RankingResult result}) async {
     final entries = await loadHistory();
-    final recorded = HistoryEntry(result: result, query: query, searchedAt: DateTime.now());
+    final recorded = HistoryEntry(result: result, searchedAt: DateTime.now());
 
     final updated = [recorded, ...entries];
     await _preferences.setString(_storageKey, jsonEncode(updated.map(historyEntryToJson).toList()));

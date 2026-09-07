@@ -27,27 +27,38 @@ void main() {
         SharedPreferences.setMockInitialValues({});
         final repository = SharedPreferencesHistoryRepository(await SharedPreferences.getInstance());
 
-        await repository.recordSearch(query: 'tapas en Sevilla', result: _result);
+        await repository.recordSearch(result: _result);
         final history = await repository.loadHistory();
 
         expect(history, hasLength(1));
-        expect(history.single.query, 'tapas en Sevilla');
+        expect(history.single.result.query, 'q');
         expect(history.single.result.items.single.name, 'La Ristra');
       });
     });
 
-    group('when the same result is searched again', () {
-      test('then it is recorded as a separate entry, most recent first', () async {
+    group('when the same query is searched twice', () {
+      test('then it is recorded as a separate entry each time, most recent first', () async {
         SharedPreferences.setMockInitialValues({});
         final repository = SharedPreferencesHistoryRepository(await SharedPreferences.getInstance());
 
-        await repository.recordSearch(query: 'tapas en Sevilla', result: _result);
-        await repository.recordSearch(query: 'mejores bares de tapas en Sevilla', result: _result);
+        const first = RankingResult(
+          query: 'tapas en Sevilla',
+          isDegraded: false,
+          items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
+        );
+        const second = RankingResult(
+          query: 'tapas en Sevilla',
+          isDegraded: false,
+          items: [RankingItem(id: '1', position: 1, name: 'Casa Morales', reason: 'r', sources: [])],
+        );
+
+        await repository.recordSearch(result: first);
+        await repository.recordSearch(result: second);
         final history = await repository.loadHistory();
 
         expect(history, hasLength(2));
-        expect(history.first.query, 'mejores bares de tapas en Sevilla');
-        expect(history.last.query, 'tapas en Sevilla');
+        expect(history.first.result.items.single.name, 'Casa Morales');
+        expect(history.last.result.items.single.name, 'La Ristra');
       });
     });
 
@@ -69,7 +80,7 @@ void main() {
           ],
         );
 
-        await repository.recordSearch(query: 'q', result: withSources);
+        await repository.recordSearch(result: withSources);
         final history = await repository.loadHistory();
 
         final source = history.single.result.items.single.sources.single;
@@ -82,7 +93,7 @@ void main() {
       test('then loadHistory returns an empty list afterwards', () async {
         SharedPreferences.setMockInitialValues({});
         final repository = SharedPreferencesHistoryRepository(await SharedPreferences.getInstance());
-        await repository.recordSearch(query: 'tapas en Sevilla', result: _result);
+        await repository.recordSearch(result: _result);
 
         await repository.clearHistory();
 
