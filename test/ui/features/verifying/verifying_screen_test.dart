@@ -12,6 +12,7 @@ import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
 import 'package:waypoint/ui/features/ranking/ranking_screen.dart';
 import 'package:waypoint/ui/features/verifying/verifying_screen.dart';
+import 'package:waypoint/ui/features/verifying/widgets/rotating_phrase.dart';
 import 'package:waypoint/ui/navigation/app_router.dart';
 import 'package:waypoint/ui/navigation/app_routes.dart';
 
@@ -57,6 +58,27 @@ void main() {
         await tester.pump();
 
         expect(find.byIcon(Icons.arrow_back), findsOneWidget);
+      });
+
+      testWidgets('then the compass is centered on the full screen, not just the space below the app bar', (
+        tester,
+      ) async {
+        final repository = RankingRepositoryMock();
+        when(
+          () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
+        ).thenAnswer((_) => Completer<RankingResult>().future);
+
+        await pumpLocalizedApp(
+          tester,
+          const VerifyingScreen(query: 'q', locale: 'en'),
+          overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
+        );
+        await tester.pump();
+
+        final screenHeight = tester.getSize(find.byType(MaterialApp)).height;
+        final contentCenterY = tester.getCenter(find.byType(RotatingPhrase)).dy;
+
+        expect(contentCenterY, closeTo(screenHeight / 2, 1));
       });
     });
 
