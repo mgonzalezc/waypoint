@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../domain/api_failure.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../design_system/widgets/waypoint_back_button.dart';
+import '../../design_system/widgets/waypoint_app_bar.dart';
 import '../../design_system/widgets/waypoint_scaffold.dart';
 import '../../design_system/theming/waypoint_spacing.dart';
 import '../../navigation/app_routes.dart';
@@ -31,26 +31,16 @@ class VerifyingScreen extends ConsumerWidget {
     });
 
     return WaypointScaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(WaypointSpacing.lg),
-            child: WaypointBackButton(),
+      appBar: const WaypointAppBar(),
+      body: state.when(
+        data: (_) => const SizedBox.shrink(),
+        loading: () => const RotatingPhrase(),
+        error: (error, _) => Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: WaypointSpacing.lg),
+            child: Text(_errorMessage(l10n, error), textAlign: TextAlign.center),
           ),
-          Expanded(
-            child: state.when(
-              data: (_) => const SizedBox.shrink(),
-              loading: () => const RotatingPhrase(),
-              error: (error, _) => Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: WaypointSpacing.lg),
-                  child: Text(_errorMessage(l10n, error), textAlign: TextAlign.center),
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
