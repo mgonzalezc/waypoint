@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../domain/history/history_entry.dart';
+import '../../../design_system/widgets/waypoint_list_row.dart';
 import '../../../design_system/theming/waypoint_spacing.dart';
 
 class HistoryRow extends StatelessWidget {
@@ -13,26 +14,20 @@ class HistoryRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return InkWell(
+    return WaypointListRow(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: WaypointSpacing.md),
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: theme.colorScheme.outline)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(entry.result.query, style: theme.textTheme.titleMedium),
-            const SizedBox(height: WaypointSpacing.xs),
-            Text(
-              entry.result.items.map((item) => item.name).join(', '),
-              style: theme.textTheme.bodyMedium,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(entry.result.query, style: theme.textTheme.titleMedium),
+          const SizedBox(height: WaypointSpacing.xs),
+          Text(
+            entry.result.items.map((item) => item.name).join(', '),
+            style: theme.textTheme.bodyMedium,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
     );
   }
