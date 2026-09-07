@@ -67,6 +67,24 @@ void main() {
       });
     });
 
+    group('when a photo entry is not an object', () {
+      test('then the photo URL is null instead of throwing', () async {
+        stubSearch({
+          'places': [
+            {
+              'photos': ['not an object'],
+              'location': {'latitude': 37.3826, 'longitude': -5.9963},
+            },
+          ],
+        });
+
+        final media = await repository.findMedia('La Ristra');
+
+        expect(media.photoUrl, isNull);
+        expect(media.mapUrl, contains('center=37.3826,-5.9963'));
+      });
+    });
+
     group('when no places are found', () {
       test('then both URLs are null', () async {
         stubSearch({'places': <dynamic>[]});

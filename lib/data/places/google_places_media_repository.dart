@@ -35,7 +35,10 @@ class GooglePlacesMediaRepository implements PlaceMediaRepository {
     final photos = place['photos'];
     if (photos is! List || photos.isEmpty) return null;
 
-    final photoResourceName = photos.first['name'];
+    final photo = photos.first;
+    if (photo is! Map<String, dynamic>) return null;
+
+    final photoResourceName = photo['name'];
     if (photoResourceName is! String) return null;
 
     return 'https://places.googleapis.com/v1/$photoResourceName/media'
