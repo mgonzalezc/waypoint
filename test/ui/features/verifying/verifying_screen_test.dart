@@ -42,6 +42,22 @@ void main() {
         await tester.pump(const Duration(seconds: 2));
         expect(find.text('Taste-testing restaurants...'), findsOneWidget);
       });
+
+      testWidgets('then a back button is still shown', (tester) async {
+        final repository = RankingRepositoryMock();
+        when(
+          () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
+        ).thenAnswer((_) => Completer<RankingResult>().future);
+
+        await pumpLocalizedApp(
+          tester,
+          const VerifyingScreen(query: 'q', locale: 'en'),
+          overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
+        );
+        await tester.pump();
+
+        expect(find.byIcon(Icons.arrow_back), findsOneWidget);
+      });
     });
 
     group('when the search succeeds', () {
