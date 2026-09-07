@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'l10n/app_localizations.dart';
 import 'ui/design_system/theming/waypoint_theme.dart';
-import 'ui/screens/ask/ask_screen.dart';
+import 'ui/navigation/app_router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,13 +39,13 @@ class WaypointApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Waypoint',
       debugShowCheckedModeBanner: false,
       theme: buildWaypointTheme(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const AskScreen(),
+      routerConfig: appRouter,
     );
   }
 }

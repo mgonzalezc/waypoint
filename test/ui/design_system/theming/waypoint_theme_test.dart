@@ -19,6 +19,12 @@ void main() {
         expect(theme.textTheme.headlineMedium?.fontFamily, 'Archivo');
         expect(theme.textTheme.bodyLarge?.fontFamily, 'Onest');
       });
+
+      test('then surfaceTint is transparent, not Material 3\'s default purple scroll tint', () {
+        final theme = buildWaypointTheme();
+
+        expect(theme.colorScheme.surfaceTint, Colors.transparent);
+      });
     });
   });
 }
