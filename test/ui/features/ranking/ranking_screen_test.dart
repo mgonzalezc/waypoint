@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:waypoint/domain/ranking/ranking_item.dart';
 import 'package:waypoint/domain/ranking/ranking_result.dart';
 import 'package:waypoint/ui/features/detail/detail_screen.dart';
 import 'package:waypoint/ui/features/ranking/ranking_screen.dart';
 import 'package:waypoint/ui/navigation/app_router.dart';
+import 'package:waypoint/ui/navigation/app_routes.dart';
 
 import '../../../support/pump_localized_app.dart';
 import '../../../support/pump_routed_app.dart';
@@ -65,17 +67,15 @@ void main() {
           items: [RankingItem(id: '1', position: 1, name: 'Only Good One', reason: 'r', sources: [])],
         );
 
-        await pumpLocalizedApp(
+        await pumpRoutedApp(
           tester,
           Builder(
             builder: (context) => ElevatedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const RankingScreen(result: result)),
-              ),
+              onPressed: () => context.pushNamed(AppRoutes.rankingName, extra: result),
               child: const Text('open'),
             ),
           ),
+          additionalRoutes: [rankingRoute],
         );
 
         await tester.tap(find.text('open'));

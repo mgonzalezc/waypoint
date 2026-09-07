@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../theming/waypoint_spacing.dart';
 
@@ -34,7 +35,7 @@ class WaypointAppBar extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
           child: IconButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => context.pop(),
             icon: Icon(Icons.arrow_back, size: WaypointSpacing.iconMd, color: theme.colorScheme.onSurface),
           ),
         ),

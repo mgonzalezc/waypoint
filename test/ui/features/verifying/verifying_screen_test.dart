@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waypoint/data/history/shared_preferences_history_repository.dart';
@@ -12,6 +13,7 @@ import 'package:waypoint/domain/ranking/ranking_result.dart';
 import 'package:waypoint/ui/features/ranking/ranking_screen.dart';
 import 'package:waypoint/ui/features/verifying/verifying_screen.dart';
 import 'package:waypoint/ui/navigation/app_router.dart';
+import 'package:waypoint/ui/navigation/app_routes.dart';
 
 import '../../../domain/ranking/ranking_repository_mock.dart';
 import '../../../support/pump_localized_app.dart';
@@ -155,18 +157,19 @@ void main() {
           () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
         ).thenThrow(const NoConnection());
 
-        await pumpLocalizedApp(
+        await pumpRoutedApp(
           tester,
           Builder(
             builder: (context) => ElevatedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const VerifyingScreen(query: 'q', locale: 'en')),
+              onPressed: () => context.pushNamed(
+                AppRoutes.verifyingName,
+                extra: (query: 'q', locale: 'en'),
               ),
               child: const Text('open'),
             ),
           ),
           overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
+          additionalRoutes: [verifyingRoute],
         );
 
         await tester.tap(find.text('open'));

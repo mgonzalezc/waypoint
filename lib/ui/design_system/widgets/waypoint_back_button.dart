@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../theming/waypoint_spacing.dart';
 
@@ -8,7 +9,7 @@ class WaypointBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => Navigator.pop(context),
+      onPressed: () => context.pop(),
       icon: Icon(
         Icons.arrow_back,
         size: WaypointSpacing.iconMd,
