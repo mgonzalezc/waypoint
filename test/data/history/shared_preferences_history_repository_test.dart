@@ -8,7 +8,7 @@ import 'package:waypoint/domain/ranking/source_citation.dart';
 const _result = RankingResult(
   query: 'q',
   isDegraded: false,
-  items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
+  items: [RankingItem(position: 1, name: 'La Ristra', reason: 'r', sources: [])],
 );
 
 void main() {
@@ -44,12 +44,12 @@ void main() {
         const first = RankingResult(
           query: 'tapas en Sevilla',
           isDegraded: false,
-          items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'La Ristra', reason: 'r', sources: [])],
         );
         const second = RankingResult(
           query: 'tapas en Sevilla',
           isDegraded: false,
-          items: [RankingItem(id: '1', position: 1, name: 'Casa Morales', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'Casa Morales', reason: 'r', sources: [])],
         );
 
         await repository.recordSearch(result: first);
@@ -71,7 +71,6 @@ void main() {
           isDegraded: false,
           items: [
             RankingItem(
-              id: '1',
               position: 1,
               name: 'La Ristra',
               reason: 'r',

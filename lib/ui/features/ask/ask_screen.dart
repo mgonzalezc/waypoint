@@ -32,6 +32,7 @@ class _AskScreenState extends ConsumerState<AskScreen> {
     if (query.isEmpty) return;
 
     final locale = Localizations.localeOf(context).languageCode;
+    FocusManager.instance.primaryFocus?.unfocus();
     ref.read(askViewModelProvider.notifier).submitQuery(query: query, locale: locale);
     context.pushNamed(AppRoutes.verifyingName, extra: (query: query, locale: locale));
   }

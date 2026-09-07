@@ -12,9 +12,14 @@ class VerifyingViewModel extends AutoDisposeFamilyAsyncNotifier<RankingResult, V
   Future<RankingResult> build(VerifyingQuery arg) async {
     final stopwatch = Stopwatch()..start();
 
+    var disposed = false;
+    ref.onDispose(() => disposed = true);
+
     final result = await ref
         .read(rankingRepositoryProvider)
         .generateRanking(query: arg.query, locale: arg.locale);
+
+    if (disposed) return result;
 
     if (result.items.isNotEmpty) {
       final historyRepository = await ref.read(historyRepositoryProvider.future);

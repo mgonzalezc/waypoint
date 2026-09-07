@@ -87,7 +87,6 @@ void main() {
     group('when the item has sources', () {
       testWidgets('then the reason and every source title are shown', (tester) async {
         const item = RankingItem(
-          id: '1',
           position: 1,
           name: 'La Ristra',
           reason: 'Closest to the venue.',
@@ -104,7 +103,7 @@ void main() {
 
     group('when the item has no sources', () {
       testWidgets('then no sources section is shown', (tester) async {
-        const item = RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: []);
+        const item = RankingItem(position: 1, name: 'La Ristra', reason: 'r', sources: []);
 
         await pumpLocalizedApp(tester, const DetailScreen(item: item, query: 'tapas en Sevilla'));
 
@@ -115,7 +114,6 @@ void main() {
     group('when the user taps a source', () {
       testWidgets('then it launches that source\'s URL', (tester) async {
         const item = RankingItem(
-          id: '1',
           position: 1,
           name: 'La Ristra',
           reason: 'r',
@@ -140,7 +138,6 @@ void main() {
       testWidgets('then it tells the user, instead of doing nothing', (tester) async {
         when(() => urlLauncher.launchUrl(any(), any())).thenAnswer((_) async => false);
         const item = RankingItem(
-          id: '1',
           position: 1,
           name: 'La Ristra',
           reason: 'r',
@@ -165,7 +162,7 @@ void main() {
       testWidgets('then both are shown above the ranking numeral', (tester) async {
         debugNetworkImageHttpClientProvider = () => _FakeHttpClient();
 
-        const item = RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: []);
+        const item = RankingItem(position: 1, name: 'La Ristra', reason: 'r', sources: []);
         final repository = PlaceMediaRepositoryMock();
         when(() => repository.findMedia(any())).thenAnswer(
           (_) async => const PlaceMedia(
@@ -189,7 +186,7 @@ void main() {
 
     group('when no photo or map is found for the place', () {
       testWidgets('then a placeholder is shown instead of a broken image', (tester) async {
-        const item = RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: []);
+        const item = RankingItem(position: 1, name: 'La Ristra', reason: 'r', sources: []);
         final repository = PlaceMediaRepositoryMock();
         when(() => repository.findMedia(any())).thenAnswer((_) async => const PlaceMedia());
 

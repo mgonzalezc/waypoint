@@ -79,7 +79,7 @@ void main() {
         const result = RankingResult(
           query: 'q',
           isDegraded: false,
-          items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'La Ristra', reason: 'r', sources: [])],
         );
         completer.complete(result);
         await tester.pump();
