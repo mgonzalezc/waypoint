@@ -68,7 +68,7 @@ void main() {
 
         final history = await container.read(historyEntriesProvider.future);
         expect(history, hasLength(1));
-        expect(history.single.query, 'q');
+        expect(history.single.result.query, 'q');
       });
 
       test('then it tracks render_ranking with the item count, degraded flag, and latency', () async {

@@ -23,7 +23,7 @@ class HistoryRow extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(entry.query, style: theme.textTheme.titleMedium),
+            Text(entry.result.query, style: theme.textTheme.titleMedium),
             const SizedBox(height: WaypointSpacing.xs),
             Text(
               entry.result.items.map((item) => item.name).join(', '),

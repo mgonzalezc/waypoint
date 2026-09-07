@@ -79,11 +79,11 @@ void main() {
       testWidgets('then it is shown inline below the search field', (tester) async {
         final repository = SharedPreferencesHistoryRepository(await SharedPreferences.getInstance());
         const result = RankingResult(
-          query: 'q',
+          query: 'tapas en Sevilla',
           isDegraded: false,
           items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
         );
-        await repository.recordSearch(query: 'tapas en Sevilla', result: result);
+        await repository.recordSearch(result: result);
 
         await pumpLocalizedApp(tester, const AskScreen());
         await tester.pump();
@@ -97,11 +97,11 @@ void main() {
       testWidgets('then it navigates straight to that saved result, no re-fetch', (tester) async {
         final repository = SharedPreferencesHistoryRepository(await SharedPreferences.getInstance());
         const result = RankingResult(
-          query: 'q',
+          query: 'tapas en Sevilla',
           isDegraded: false,
           items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
         );
-        await repository.recordSearch(query: 'tapas en Sevilla', result: result);
+        await repository.recordSearch(result: result);
 
         await pumpRoutedApp(tester, const AskScreen(), additionalRoutes: [rankingRoute]);
         await tester.pump();
@@ -119,11 +119,11 @@ void main() {
       testWidgets('then the history disappears', (tester) async {
         final repository = SharedPreferencesHistoryRepository(await SharedPreferences.getInstance());
         const result = RankingResult(
-          query: 'q',
+          query: 'tapas en Sevilla',
           isDegraded: false,
           items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
         );
-        await repository.recordSearch(query: 'tapas en Sevilla', result: result);
+        await repository.recordSearch(result: result);
 
         await pumpLocalizedApp(tester, const AskScreen());
         await tester.pump();
@@ -141,11 +141,11 @@ void main() {
       testWidgets('then the history stays', (tester) async {
         final repository = SharedPreferencesHistoryRepository(await SharedPreferences.getInstance());
         const result = RankingResult(
-          query: 'q',
+          query: 'tapas en Sevilla',
           isDegraded: false,
           items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
         );
-        await repository.recordSearch(query: 'tapas en Sevilla', result: result);
+        await repository.recordSearch(result: result);
 
         await pumpLocalizedApp(tester, const AskScreen());
         await tester.pump();
