@@ -65,6 +65,40 @@ void main() {
       });
     });
 
+    group('when the user submits, then pops back to Ask', () {
+      testWidgets('then the query field is not refocused', (tester) async {
+        final repository = RankingRepositoryMock();
+        when(
+          () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
+        ).thenAnswer((_) => Completer<RankingResult>().future);
+
+        await pumpRoutedApp(
+          tester,
+          const AskScreen(),
+          overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
+          additionalRoutes: [verifyingRoute],
+        );
+
+        final fieldFocus = tester.widget<EditableText>(find.byType(EditableText)).focusNode;
+
+        await tester.tap(find.byType(TextField));
+        await tester.pump();
+        expect(fieldFocus.hasFocus, isTrue);
+
+        await tester.enterText(find.byType(TextField), 'tapas en Roma');
+        await tester.pump();
+        await tester.tap(find.text('Generate ranking'));
+        await tester.pump();
+        await tester.pump();
+
+        await tester.tap(find.byIcon(Icons.arrow_back));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(AskScreen), findsOneWidget);
+        expect(fieldFocus.hasFocus, isFalse);
+      });
+    });
+
     group('when there is no search history yet', () {
       testWidgets('then it renders with just the field and the button', (tester) async {
         await pumpLocalizedApp(tester, const AskScreen());
