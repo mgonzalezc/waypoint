@@ -27,7 +27,7 @@ void main() {
           isDegraded: false,
           items: List.generate(
             10,
-            (i) => RankingItem(id: '$i', position: i + 1, name: 'Place $i', reason: 'r', sources: const []),
+            (i) => RankingItem(position: i + 1, name: 'Place $i', reason: 'r', sources: const []),
           ),
         );
         when(
@@ -53,7 +53,7 @@ void main() {
         const result = RankingResult(
           query: 'q',
           isDegraded: false,
-          items: [RankingItem(id: '1', position: 1, name: 'Place', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'Place', reason: 'r', sources: [])],
         );
         when(
           () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
@@ -76,7 +76,7 @@ void main() {
         const result = RankingResult(
           query: 'q',
           isDegraded: true,
-          items: [RankingItem(id: '1', position: 1, name: 'Place', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'Place', reason: 'r', sources: [])],
         );
         when(
           () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),

@@ -26,7 +26,6 @@ RankingResult _resultFromJson(Map<String, dynamic> json) => RankingResult(
 );
 
 Map<String, dynamic> _itemToJson(RankingItem item) => {
-  'id': item.id,
   'position': item.position,
   'name': item.name,
   'reason': item.reason,
@@ -34,7 +33,6 @@ Map<String, dynamic> _itemToJson(RankingItem item) => {
 };
 
 RankingItem _itemFromJson(Map<String, dynamic> json) => RankingItem(
-  id: json['id'] as String,
   position: json['position'] as int,
   name: json['name'] as String,
   reason: json['reason'] as String,

@@ -81,7 +81,7 @@ void main() {
         const result = RankingResult(
           query: 'tapas en Sevilla',
           isDegraded: false,
-          items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'La Ristra', reason: 'r', sources: [])],
         );
         await repository.recordSearch(result: result);
 
@@ -99,7 +99,7 @@ void main() {
         const result = RankingResult(
           query: 'tapas en Sevilla',
           isDegraded: false,
-          items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'La Ristra', reason: 'r', sources: [])],
         );
         await repository.recordSearch(result: result);
 
@@ -121,7 +121,7 @@ void main() {
         const result = RankingResult(
           query: 'tapas en Sevilla',
           isDegraded: false,
-          items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'La Ristra', reason: 'r', sources: [])],
         );
         await repository.recordSearch(result: result);
 
@@ -143,7 +143,7 @@ void main() {
         const result = RankingResult(
           query: 'tapas en Sevilla',
           isDegraded: false,
-          items: [RankingItem(id: '1', position: 1, name: 'La Ristra', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'La Ristra', reason: 'r', sources: [])],
         );
         await repository.recordSearch(result: result);
 

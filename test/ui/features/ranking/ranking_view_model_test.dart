@@ -17,7 +17,7 @@ void main() {
         );
         addTearDown(container.dispose);
 
-        const item = RankingItem(id: '1', position: 3, name: 'Place', reason: 'r', sources: []);
+        const item = RankingItem(position: 3, name: 'Place', reason: 'r', sources: []);
         container.read(rankingViewModelProvider.notifier).openItem(item);
 
         verify(() => analytics.track('open_detail', properties: {'position': 3})).called(1);

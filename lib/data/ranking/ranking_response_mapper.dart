@@ -28,7 +28,6 @@ RankingItem _itemFromJson(Map<String, dynamic> json, {required int position}) {
   }
 
   return RankingItem(
-    id: '$position',
     position: position,
     name: name,
     reason: reason,

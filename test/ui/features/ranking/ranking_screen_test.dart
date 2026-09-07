@@ -20,7 +20,7 @@ void main() {
           isDegraded: false,
           items: List.generate(
             10,
-            (i) => RankingItem(id: '$i', position: i + 1, name: 'Place $i', reason: 'r', sources: const []),
+            (i) => RankingItem(position: i + 1, name: 'Place $i', reason: 'r', sources: const []),
           ),
         );
 
@@ -38,7 +38,7 @@ void main() {
         const result = RankingResult(
           query: 'q',
           isDegraded: true,
-          items: [RankingItem(id: '1', position: 1, name: 'Only Good One', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'Only Good One', reason: 'r', sources: [])],
         );
 
         await pumpLocalizedApp(tester, const RankingScreen(result: result));
@@ -64,7 +64,7 @@ void main() {
         const result = RankingResult(
           query: 'q',
           isDegraded: true,
-          items: [RankingItem(id: '1', position: 1, name: 'Only Good One', reason: 'r', sources: [])],
+          items: [RankingItem(position: 1, name: 'Only Good One', reason: 'r', sources: [])],
         );
 
         await pumpRoutedApp(
@@ -93,7 +93,6 @@ void main() {
     group('when an item\'s reason is long', () {
       testWidgets('then it is limited to 2 lines with an ellipsis', (tester) async {
         const item = RankingItem(
-          id: '1',
           position: 1,
           name: 'Only Good One',
           reason: 'A long-winded description of why this place made the list, spanning several lines.',
@@ -111,7 +110,7 @@ void main() {
 
     group('when the user taps an item', () {
       testWidgets('then it navigates to that item\'s detail screen', (tester) async {
-        const item = RankingItem(id: '1', position: 1, name: 'Only Good One', reason: 'r', sources: []);
+        const item = RankingItem(position: 1, name: 'Only Good One', reason: 'r', sources: []);
         const result = RankingResult(query: 'q', isDegraded: false, items: [item]);
 
         await pumpRoutedApp(tester, const RankingScreen(result: result), additionalRoutes: [detailRoute]);
@@ -120,7 +119,7 @@ void main() {
         await tester.pumpAndSettle();
 
         final screen = tester.widget<DetailScreen>(find.byType(DetailScreen));
-        expect(screen.item.id, '1');
+        expect(screen.item.name, 'Only Good One');
       });
     });
   });
