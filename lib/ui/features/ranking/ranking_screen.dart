@@ -17,6 +17,8 @@ class RankingScreen extends ConsumerWidget {
 
   final RankingResult result;
 
+  static const double _titleFontSize = 22;
+
   void _openDetail(BuildContext context, WidgetRef ref, RankingItem item) {
     ref.read(rankingViewModelProvider.notifier).openItem(item);
     context.pushNamed(AppRoutes.detailName, extra: (item: item, query: result.query));
@@ -32,7 +34,7 @@ class RankingScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(WaypointSpacing.lg),
         children: [
-          Text(l10n.rankingTitle, style: theme.textTheme.displayLarge?.copyWith(fontSize: 22)),
+          Text(l10n.rankingTitle, style: theme.textTheme.displayLarge?.copyWith(fontSize: _titleFontSize)),
           RankingList(result: result, onItemTap: (item) => _openDetail(context, ref, item)),
         ],
       ),
