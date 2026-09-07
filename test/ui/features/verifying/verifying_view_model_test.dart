@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -118,6 +120,41 @@ void main() {
           container.read(verifyingViewModelProvider((query: 'q', locale: 'es')).future),
           throwsA(isA<NoConnection>()),
         );
+      });
+    });
+
+    group('when the user navigates away before the search finishes', () {
+      test('then it is not recorded to history once it resolves', () async {
+        final repository = RankingRepositoryMock();
+        final completer = Completer<RankingResult>();
+        when(
+          () => repository.generateRanking(query: any(named: 'query'), locale: any(named: 'locale')),
+        ).thenAnswer((_) => completer.future);
+
+        final container = ProviderContainer(
+          overrides: [rankingRepositoryProvider.overrideWithValue(repository)],
+        );
+        addTearDown(container.dispose);
+
+        final query = verifyingViewModelProvider((query: 'q', locale: 'es'));
+        final subscription = container.listen(query, (previous, next) {});
+        await Future<void>.delayed(Duration.zero);
+
+        subscription.close();
+        await Future<void>.delayed(Duration.zero);
+
+        completer.complete(
+          const RankingResult(
+            query: 'q',
+            isDegraded: false,
+            items: [RankingItem(position: 1, name: 'Place', reason: 'r', sources: [])],
+          ),
+        );
+        await completer.future;
+        await Future<void>.delayed(Duration.zero);
+
+        final history = await container.read(historyEntriesProvider.future);
+        expect(history, isEmpty);
       });
     });
 
