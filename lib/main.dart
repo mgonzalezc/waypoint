@@ -9,23 +9,25 @@ import 'ui/design_system/theming/waypoint_theme.dart';
 import 'ui/navigation/app_router.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.light,
-    ),
-  );
-
-  FlutterError.onError = (details) {
-    FlutterError.presentError(details);
-    // Crashlytics / Sentry: FirebaseCrashlytics.instance.recordFlutterFatalError(details)
-  };
-
   runZonedGuarded(
-    () => runApp(const ProviderScope(child: WaypointApp())),
+    () {
+      WidgetsFlutterBinding.ensureInitialized();
+
+      SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
+      );
+
+      FlutterError.onError = (details) {
+        FlutterError.presentError(details);
+        // Crashlytics / Sentry: FirebaseCrashlytics.instance.recordFlutterFatalError(details)
+      };
+
+      runApp(const ProviderScope(child: WaypointApp()));
+    },
     (error, stack) {
       debugPrint('Uncaught zone error: $error');
       debugPrintStack(stackTrace: stack);
