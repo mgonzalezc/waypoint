@@ -7,7 +7,7 @@ import '../../domain/ranking/ranking_repository.dart';
 import '../../domain/ranking/ranking_result.dart';
 import '../dio_exception_mapper.dart';
 import '../services/openai_service.dart';
-import 'ranking_openai_config.dart';
+import 'ranking_system_prompt.dart';
 import 'ranking_response_mapper.dart';
 
 class DirectOpenAiRankingRepository implements RankingRepository {
