@@ -28,7 +28,7 @@ RankingItem _itemFromJson(Map<String, dynamic> json, {required int position}) {
   }
 
   return RankingItem(
-    id: '$position-${name.hashCode}',
+    id: '$position',
     position: position,
     name: name,
     reason: reason,
