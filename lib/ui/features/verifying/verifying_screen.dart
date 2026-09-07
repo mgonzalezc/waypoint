@@ -32,6 +32,7 @@ class VerifyingScreen extends ConsumerWidget {
 
     return WaypointScaffold(
       appBar: const WaypointAppBar(),
+      extendBodyBehindAppBar: true,
       body: state.when(
         data: (_) => const SizedBox.shrink(),
         loading: () => const RotatingPhrase(),
